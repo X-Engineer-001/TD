@@ -1,11 +1,15 @@
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
-var chtimg=document.createElement("img");
-chtimg.src="images/slime.gif";
+var enemyimg=document.createElement("img");
+enemyimg.src="images/enemy.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
+var enemy={
+  x:0,
+  y:0
+};
 function draw(){
   ctx.drawImage(bgimg,0,0);
-  ctx.drawImage(chtimg,0,0);
+  ctx.drawImage(enemyimg,enemy.x,enemy.y);
 }
-setTimeout(draw,1000);
+setInterval(draw,40);

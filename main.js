@@ -14,7 +14,11 @@ var cursor={
   x:0
   y:0
 }
-$("#gamecanvas").mousemove(fuction(event){cursor.x=event.pageX;cursor.y=event.pageY;})
+$("#gamecanvas").mousemove(function(event){
+
+  cursor.x=event.pageX;
+  cursor.y=event.pageY;
+})
 function draw(){
   ctx.drawImage(bgimg,0,0);
   ctx.drawImage(enemyimg,enemy.x,enemy.y);

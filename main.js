@@ -4,8 +4,8 @@ var enemyimg=document.createElement("img");
 enemyimg.src="images/enemy.jpg";
 var tower1img=document.createElement("img");
 tower1img.src="images/tower1.jpg";
-var tower1-btmimg=document.createElement("img");
-tower1-btmimg.src="images/tower1-btm.jpg";
+var tower1btmimg=document.createElement("img");
+tower1btmimg.src="images/tower1btm.jpg";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=false;
@@ -28,7 +28,7 @@ $("#gamecanvas").click(function(){
 function draw(){
   ctx.drawImage(bgimg,0,0);
   ctx.drawImage(enemyimg,enemy.x,enemy.y);
-  ctx.drawImage(tower1-btmimg,640,0);
+  ctx.drawImage(tower1btmimg,640,0);
   if(isbuilding=ture){
   ctx.drawImage(tower1img,cursor.x,cursor.y);
   }

@@ -29,7 +29,7 @@ function draw(){
   ctx.drawImage(bgimg,0,0);
   ctx.drawImage(enemyimg,enemy.x,enemy.y);
   ctx.drawImage(tower1btmimg,640,0);
-  if(isbuilding=ture){
+  if(isbuilding==ture){
   ctx.drawImage(tower1img,cursor.x,cursor.y);
   }
 }

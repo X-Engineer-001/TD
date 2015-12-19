@@ -18,12 +18,6 @@ var cursor={
   y:0
 }
 $("#gamecanvas").mousemove(function(event){
-<<<<<<< HEAD
-
-  cursor.x=event.pageX;
-  cursor.y=event.pageY;
-})
-=======
   cursor.x=event.offsetX;cursor.y=event.offsetY;
 });
 $("#gamecanvas").click(function(){
@@ -31,7 +25,6 @@ $("#gamecanvas").click(function(){
     isbuilding=!isbuilding
   }
 });
->>>>>>> origin/gh-pages
 function draw(){
   ctx.drawImage(bgimg,0,0);
   ctx.drawImage(enemyimg,enemy.x,enemy.y);

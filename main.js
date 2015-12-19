@@ -11,7 +11,7 @@ var enemy={
   y:0
 };
 var cursor={
-  x:0
+  x:0,
   y:0
 }
 $("#gamecanvas").mousemove(fuction(event){cursor.x=event.pageX;cursor.y=event.pageY;})

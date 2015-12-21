@@ -30,7 +30,7 @@ function draw(){
   ctx.drawImage(enemyimg,enemy.x,enemy.y);
   ctx.drawImage(tower1btmimg,640,0);
   if(isbuilding==true){
-  ctx.drawImage(tower1img,cursor.x,cursor.y);
+  ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
 }
 setInterval(draw,40);

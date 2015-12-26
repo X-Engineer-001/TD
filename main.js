@@ -42,7 +42,7 @@ function draw(){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
   if(tower.x!=none&&tower.y!=none){
-    ctx.drawImage(tower1img,tower.x,tower.y));
+    ctx.drawImage(tower1img,tower.x,tower.y);
   }
 }
 setInterval(draw,40);

@@ -14,8 +14,8 @@ var enemy={
   y:0
 };
 var tower={
-  x:none,
-  y:none
+  x:-1,
+  y:-1
 };
 var cursor={
   x:0,
@@ -41,7 +41,7 @@ function draw(){
   if(isbuilding==true){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
-  if(tower.x!=none&&tower.y!=none){
+  if(tower.x!=-1&&tower.y!=-1){
     ctx.drawImage(tower1img,tower.x,tower.y);
   }
 }

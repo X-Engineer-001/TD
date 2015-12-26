@@ -14,8 +14,8 @@ var enemy={
   y:0
 };
 var tower={
-  x:-1,
-  y:-1
+  x:none,
+  y:none
 };
 var cursor={
   x:0,

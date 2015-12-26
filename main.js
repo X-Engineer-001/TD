@@ -1,3 +1,4 @@
+var FPS=60;
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
 var enemyimg=document.createElement("img");
@@ -10,8 +11,14 @@ var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=false;
 var enemy={
-  x:0,
-  y:0
+  x:224,
+  y:0,
+  speed:64,
+  direction:{x:0,y:-1},
+  move:function(){
+    enemy.x=enemy.x+(enemy.direction.x*(speed/FPS));
+    enemy.y=enemy.y+(enemy.direction.y*(speed/FPS));
+  }
 };
 var tower={
   x:-1,
@@ -44,5 +51,6 @@ function draw(){
   if(tower.x!=-1&&tower.y!=-1){
     ctx.drawImage(tower1img,tower.x,tower.y);
   }
+  enemy.move();
 }
-setInterval(draw,40);
+setInterval(draw,1000/FPS);

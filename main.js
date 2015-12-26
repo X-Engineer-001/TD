@@ -14,7 +14,7 @@ var enemy={
   x:224,
   y:0,
   speed:64,
-  direction:{x:0,y:-1},
+  direction:{x:0,y:1},
   move:function(){
     enemy.x=enemy.x+(enemy.direction.x*(enemy.speed/FPS));
     enemy.y=enemy.y+(enemy.direction.y*(enemy.speed/FPS));

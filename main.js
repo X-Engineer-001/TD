@@ -16,8 +16,8 @@ var enemy={
   speed:64,
   direction:{x:0,y:1},
   move:function(){
-    enemy.x=enemy.x+(enemy.direction.x*(enemy.speed/FPS));
-    enemy.y=enemy.y+(enemy.direction.y*(enemy.speed/FPS));
+    this.x=enemy.x+(this.direction.x*(this.speed/FPS));
+    this.y=enemy.y+(this.direction.y*(this.speed/FPS));
   }
 };
 var tower={

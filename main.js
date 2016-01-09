@@ -17,7 +17,6 @@ var enemy={
   direction:{x:0,y:1},
   waypointsdes:0,
   move:function(){
-    console.log("x:"+this.x+", y:"+this.y);
     if(iscollided(waypoints[this.waypointsdes].x,
       waypoints[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS

@@ -304,7 +304,7 @@ $("#gamecanvas").click(function(){
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
     isbuilding=!isbuilding
   }
-  if(isbuilding==true&&cursor.x<640&&canbuild1()){
+  if(isbuilding==true&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()){
     tower.x=cursor.x-(cursor.x%32);
     tower.y=cursor.y-(cursor.y%32);
   }

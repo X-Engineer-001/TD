@@ -15,6 +15,7 @@ var enemy={
   y:0,
   speed:64,
   direction:{x:0,y:1},
+  waypointsdes:0,
   move:function(){
     this.x=this.x+(this.direction.x*(this.speed/FPS));
     this.y=this.y+(this.direction.y*(this.speed/FPS));
@@ -28,15 +29,64 @@ var cursor={
   x:0,
   y:0
 };
+var waypoints=[
+  {x:7*32,y:2*32},
+  {x:4*32,y:2*32},
+  {x:4*32,y:1*32},
+  {x:2*32,y:1*32},
+  {x:2*32,y:4*32},
+  {x:1*32,y:4*32},
+  {x:1*32,y:8*32},
+  {x:4*32,y:8*32},
+  {x:4*32,y:5*32},
+  {x:6*32,y:5*32},
+  {x:6*32,y:4*32},
+  {x:10*32,y:4*32},
+  {x:10*32,y:2*32},
+  {x:12*32,y:2*32},
+  {x:12*32,y:1*32},
+  {x:20*32,y:1*32}
+];
+function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheight){
+  if(waypointsx>=targetx&&
+    waypointsx<=targetx+targetwidth&&
+    waypointsy>=targety&&
+    waypointsy<=targety+targetheight
+  ){
+    return true;
+  }else{
+    return false;
+  }
+}
+function canbuild(){
+  for(var i=0;i<waypoint.length;i++){
+    if((waypoint[i].x=cursor.x-(cursor.x%32)&&((
+      cursor.y-(cursor.y%32)<=waypoint[i].y&&
+      cursor.y-(cursor.y%32)>=waypoint[i+1].y)||(
+      cursor.y-(cursor.y%32)>=waypoint[i].y&&
+      cursor.y-(cursor.y%32)<=waypoint[i+1].y)))||
+     (waypoint[i].y=cursor.y-(cursor.y%32)&&((
+      cursor.x-(cursor.x%32)<=waypoint[i].x&&
+      cursor.x-(cursor.x%32)>=waypoint[i+1].x)||(
+      cursor.x-(cursor.x%32)>=waypoint[i].x&&
+      cursor.x-(cursor.x%32)<=waypoint[i+1].x))
+     )
+  ){
+      return false;
+    }
+  }
+  return true;
+}
 $("#gamecanvas").mousemove(function(event){
   cursor.x=event.offsetX;
   cursor.y=event.offsetY;
 });
 $("#gamecanvas").click(function(){
+
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
     isbuilding=!isbuilding
   }
-  if(isbuilding==true&&cursor.x<640){
+  if(isbuilding==true&&cursor.x<640&&canbuild()){
     tower.x=cursor.x-(cursor.x%32);
     tower.y=cursor.y-(cursor.y%32);
   }

@@ -17,17 +17,17 @@ var enemy={
   direction:{x:0,y:1},
   waypointsdes:0,
   move:function(){
-    if(iscollided(waypoints[this.waypointsdes].x,
-      waypoints[this.waypointsdes].y,
+    if(iscollided(waypoints1[this.waypointsdes].x,
+      waypoints1[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
-      this.x=waypoints[this.waypointsdes].x;
-      this.y=waypoints[this.waypointsdes].y;
+      this.x=waypoints1[this.waypointsdes].x;
+      this.y=waypoints1[this.waypointsdes].y;
       this.waypointsdes=this.waypointsdes+1;
       this.direction=getunitvector(
         this.x,this.y,
-        waypoints[this.waypointsdes].x,
-        waypoints[this.waypointsdes].y
+        waypoints1[this.waypointsdes].x,
+        waypoints1[this.waypointsdes].y
       );
     }else{
       this.x=this.x+(this.direction.x*(this.speed/FPS));
@@ -43,7 +43,7 @@ var cursor={
   x:0,
   y:0
 };
-var waypoints=[
+var waypoints1=[
   {x:7*32,y:2*32},
   {x:4*32,y:2*32},
   {x:4*32,y:1*32},
@@ -73,30 +73,30 @@ function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheig
   }
 }
 function canbuild(){
-  for(var i=0;i<waypoints.length-1;i++){
+  for(var i=0;i<waypoints1.length-1;i++){
     if(
         (
-          waypoints[i].x==(cursor.x-(cursor.x%32)) &&
-          waypoints[i+1].x==(cursor.x-(cursor.x%32)) &&
+          waypoints1[i].x==(cursor.x-(cursor.x%32)) &&
+          waypoints1[i+1].x==(cursor.x-(cursor.x%32)) &&
           (
             (
-              cursor.y-(cursor.y%32)<=waypoints[i].y&&
-              cursor.y-(cursor.y%32)>=waypoints[i+1].y
+              cursor.y-(cursor.y%32)<=waypoints1[i].y&&
+              cursor.y-(cursor.y%32)>=waypoints1[i+1].y
             )||(
-              cursor.y-(cursor.y%32)>=waypoints[i].y&&
-              cursor.y-(cursor.y%32)<=waypoints[i+1].y
+              cursor.y-(cursor.y%32)>=waypoints1[i].y&&
+              cursor.y-(cursor.y%32)<=waypoints1[i+1].y
             )
           )
         )||(
-          waypoints[i].y==(cursor.y-(cursor.y%32)) &&
-          waypoints[i+1].y==(cursor.y-(cursor.y%32)) &&
+          waypoints1[i].y==(cursor.y-(cursor.y%32)) &&
+          waypoints1[i+1].y==(cursor.y-(cursor.y%32)) &&
           (
             (
-              cursor.x-(cursor.x%32)<=waypoints[i].x&&
-              cursor.x-(cursor.x%32)>=waypoints[i+1].x
+              cursor.x-(cursor.x%32)<=waypoints1[i].x&&
+              cursor.x-(cursor.x%32)>=waypoints1[i+1].x
             )||(
-              cursor.x-(cursor.x%32)>=waypoints[i].x&&
-              cursor.x-(cursor.x%32)<=waypoints[i+1].x
+              cursor.x-(cursor.x%32)>=waypoints1[i].x&&
+              cursor.x-(cursor.x%32)<=waypoints1[i+1].x
             )
           )
      )

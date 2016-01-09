@@ -16,6 +16,14 @@ var enemy={
   speed:64,
   direction:{x:0,y:1},
   waypointsdes:0,
+  choice:[
+    {x:7*32,y:2*32},
+    {x:4*32,y:2*32},
+    {x:4*32,y:1*32},
+    {x:2*32,y:1*32},
+    {x:2*32,y:4*32},
+    {x:1*32,y:4*32}
+  ],
   waypointschoice:function(){
     this.choiceflag=Math.floor(Math.random()*4);
     if(this.choiceflag==0){

@@ -73,7 +73,7 @@ function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheig
   }
 }
 function canbuild(){
-  for(var i=0;i<waypoints.length;i++){
+  for(var i=0;i<waypoints.length-1;i++){
     if(
         (
           waypoints[i].x==(cursor.x-(cursor.x%32)) &&

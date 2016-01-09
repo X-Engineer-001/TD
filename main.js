@@ -99,7 +99,7 @@ var waypoints4=[
 var enemy={
   x:224,
   y:0,
-  speed:64,
+  speed:256,
   direction:{x:0,y:1},
   waypointsdes:0,
   waypointschoice:function(){

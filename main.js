@@ -153,7 +153,7 @@ function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheig
     return false;
   }
 }
-function canbuild(){
+function canbuild1(){
   for(var i=0;i<waypoints1.length-1;i++){
     if(
         (
@@ -187,6 +187,108 @@ function canbuild(){
   }
   return true;
 }
+function canbuild2(){
+  for(var i=0;i<waypoints2.length-1;i++){
+    if(
+        (
+          waypoints2[i].x==(cursor.x-(cursor.x%32)) &&
+          waypoints2[i+1].x==(cursor.x-(cursor.x%32)) &&
+          (
+            (
+              cursor.y-(cursor.y%32)<=waypoints2[i].y&&
+              cursor.y-(cursor.y%32)>=waypoints2[i+1].y
+            )||(
+              cursor.y-(cursor.y%32)>=waypoints2[i].y&&
+              cursor.y-(cursor.y%32)<=waypoints2[i+1].y
+            )
+          )
+        )||(
+          waypoints2[i].y==(cursor.y-(cursor.y%32)) &&
+          waypoints2[i+1].y==(cursor.y-(cursor.y%32)) &&
+          (
+            (
+              cursor.x-(cursor.x%32)<=waypoints2[i].x&&
+              cursor.x-(cursor.x%32)>=waypoints2[i+1].x
+            )||(
+              cursor.x-(cursor.x%32)>=waypoints2[i].x&&
+              cursor.x-(cursor.x%32)<=waypoints2[i+1].x
+            )
+          )
+     )
+  ){
+      return false;
+    }
+  }
+  return true;
+}
+function canbuild3(){
+  for(var i=0;i<waypoints1.length-1;i++){
+    if(
+        (
+          waypoints3[i].x==(cursor.x-(cursor.x%32)) &&
+          waypoints3[i+1].x==(cursor.x-(cursor.x%32)) &&
+          (
+            (
+              cursor.y-(cursor.y%32)<=waypoints3[i].y&&
+              cursor.y-(cursor.y%32)>=waypoints3[i+1].y
+            )||(
+              cursor.y-(cursor.y%32)>=waypoints3[i].y&&
+              cursor.y-(cursor.y%32)<=waypoints3[i+1].y
+            )
+          )
+        )||(
+          waypoints3[i].y==(cursor.y-(cursor.y%32)) &&
+          waypoints3[i+1].y==(cursor.y-(cursor.y%32)) &&
+          (
+            (
+              cursor.x-(cursor.x%32)<=waypoints3[i].x&&
+              cursor.x-(cursor.x%32)>=waypoints3[i+1].x
+            )||(
+              cursor.x-(cursor.x%32)>=waypoints3[i].x&&
+              cursor.x-(cursor.x%32)<=waypoints3[i+1].x
+            )
+          )
+     )
+  ){
+      return false;
+    }
+  }
+  return true;
+}
+function canbuild4(){
+  for(var i=0;i<waypoints1.length-1;i++){
+    if(
+        (
+          waypoints4[i].x==(cursor.x-(cursor.x%32)) &&
+          waypoints4[i+1].x==(cursor.x-(cursor.x%32)) &&
+          (
+            (
+              cursor.y-(cursor.y%32)<=waypoints4[i].y&&
+              cursor.y-(cursor.y%32)>=waypoints4[i+1].y
+            )||(
+              cursor.y-(cursor.y%32)>=waypoints4[i].y&&
+              cursor.y-(cursor.y%32)<=waypoints4[i+1].y
+            )
+          )
+        )||(
+          waypoints4[i].y==(cursor.y-(cursor.y%32)) &&
+          waypoints4[i+1].y==(cursor.y-(cursor.y%32)) &&
+          (
+            (
+              cursor.x-(cursor.x%32)<=waypoints4[i].x&&
+              cursor.x-(cursor.x%32)>=waypoints4[i+1].x
+            )||(
+              cursor.x-(cursor.x%32)>=waypoints4[i].x&&
+              cursor.x-(cursor.x%32)<=waypoints4[i+1].x
+            )
+          )
+     )
+  ){
+      return false;
+    }
+  }
+  return true;
+}
 function getunitvector(srcx,srcy,targetx,targety){
   return {
     x:(targetx-srcx)/Math.sqrt(Math.pow(targetx-srcx,2)+Math.pow(targety-srcy,2)),
@@ -202,7 +304,7 @@ $("#gamecanvas").click(function(){
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
     isbuilding=!isbuilding
   }
-  if(isbuilding==true&&cursor.x<640&&canbuild()){
+  if(isbuilding==true&&cursor.x<640&&canbuild1()){
     tower.x=cursor.x-(cursor.x%32);
     tower.y=cursor.y-(cursor.y%32);
   }

@@ -93,10 +93,11 @@ function canbuild(){
   return true;
 }
 function getunitvector(srcx,srcy,targetx,targety){
-  return {
+  var a={
     x:(targetx-srcx)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy)),
     y:(targety-srcy)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy))
   };
+  return a;
 }
 $("#gamecanvas").mousemove(function(event){
   cursor.x=event.offsetX;

@@ -10,61 +10,6 @@ tower1btnimg.src="images/tower1btn.jpg";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=false;
-var enemy={
-  x:224,
-  y:0,
-  speed:64,
-  direction:{x:0,y:1},
-  waypointsdes:0,
-  choice:[
-    {x:7*32,y:2*32},
-    {x:4*32,y:2*32},
-    {x:4*32,y:1*32},
-    {x:2*32,y:1*32},
-    {x:2*32,y:4*32},
-    {x:1*32,y:4*32}
-  ],
-  waypointschoice:function(){
-    this.choiceflag=Math.floor(Math.random()*4);
-    if(this.choiceflag==0){
-      this.choice=waypoints1
-    }else if(this.choiceflag==1){
-      this.choice=waypoints2
-    }else if(this.choiceflag==2){
-      this.choice=waypoints3
-    }else if(this.choiceflag==3){
-      this.choice=waypoints4
-    }
-  },
-  move:function(){
-    if(iscollided(this.choice[this.waypointsdes].x,
-      this.choice[this.waypointsdes].y,
-      this.x,this.y,this.speed/FPS,this.speed/FPS
-    )){
-      this.x=this.choice[this.waypointsdes].x;
-      this.y=this.choice[this.waypointsdes].y;
-      this.waypointsdes=this.waypointsdes+1;
-      this.direction=getunitvector(
-        this.x,this.y,
-        this.choice[this.waypointsdes].x,
-        this.choice[this.waypointsdes].y
-      );
-    }else{
-      this.x=this.x+(this.direction.x*(this.speed/FPS));
-      this.y=this.y+(this.direction.y*(this.speed/FPS));
-    }
-  }
-};
-enemy.waypointschoice();
-alert(enemy.choice);
-var tower={
-  x:-1,
-  y:-1
-};
-var cursor={
-  x:0,
-  y:0
-};
 var waypoints1=[
   {x:7*32,y:2*32},
   {x:4*32,y:2*32},
@@ -151,6 +96,52 @@ var waypoints4=[
   {x:18*32,y:9*32},
   {x:20*32,y:9*32}
 ];
+var enemy={
+  x:224,
+  y:0,
+  speed:64,
+  direction:{x:0,y:1},
+  waypointsdes:0,
+  waypointschoice:function(){
+    this.choiceflag=Math.floor(Math.random()*4);
+    if(this.choiceflag==0){
+      this.choice=waypoints1
+    }else if(this.choiceflag==1){
+      this.choice=waypoints2
+    }else if(this.choiceflag==2){
+      this.choice=waypoints3
+    }else if(this.choiceflag==3){
+      this.choice=waypoints4
+    }
+  },
+  move:function(){
+    if(iscollided(this.choice[this.waypointsdes].x,
+      this.choice[this.waypointsdes].y,
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )){
+      this.x=this.choice[this.waypointsdes].x;
+      this.y=this.choice[this.waypointsdes].y;
+      this.waypointsdes=this.waypointsdes+1;
+      this.direction=getunitvector(
+        this.x,this.y,
+        this.choice[this.waypointsdes].x,
+        this.choice[this.waypointsdes].y
+      );
+    }else{
+      this.x=this.x+(this.direction.x*(this.speed/FPS));
+      this.y=this.y+(this.direction.y*(this.speed/FPS));
+    }
+  }
+};
+enemy.waypointschoice();
+var tower={
+  x:-1,
+  y:-1
+};
+var cursor={
+  x:0,
+  y:0
+};
 function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheight){
   if(waypointsx>=targetx&&
     waypointsx<=targetx+targetwidth&&

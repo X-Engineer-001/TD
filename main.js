@@ -24,14 +24,20 @@ var enemy={
       this.x=waypoints[this.waypointsdes].x;
       this.y=waypoints[this.waypointsdes].y;
       this.waypointsdes=this.waypointsdes+1;
-      this.direction=getunitvector(
+      this.direction.x=getunitvector(
         this.x,this.y,
         waypoints[this.waypointsdes].x,
         waypoints[this.waypointsdes].y
-      );
+      ).x;
+      this.direction.y=getunitvector(
+        this.x,this.y,
+        waypoints[this.waypointsdes].x,
+        waypoints[this.waypointsdes].y
+      ).y;
+    }else{
+      this.x=this.x+(this.direction.x*(this.speed/FPS));
+      this.y=this.y+(this.direction.y*(this.speed/FPS));
     }
-    this.x=this.x+(this.direction.x*(this.speed/FPS));
-    this.y=this.y+(this.direction.y*(this.speed/FPS));
   }
 };
 var tower={
@@ -73,16 +79,16 @@ function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheig
 }
 function canbuild(){
   for(var i=0;i<waypoints.length;i++){
-    if((waypoint[i].x=cursor.x-(cursor.x%32)&&((
-      cursor.y-(cursor.y%32)<=waypoint[i].y&&
-      cursor.y-(cursor.y%32)>=waypoint[i+1].y)||(
-      cursor.y-(cursor.y%32)>=waypoint[i].y&&
-      cursor.y-(cursor.y%32)<=waypoint[i+1].y)))||
-     (waypoint[i].y=cursor.y-(cursor.y%32)&&((
-      cursor.x-(cursor.x%32)<=waypoint[i].x&&
-      cursor.x-(cursor.x%32)>=waypoint[i+1].x)||(
-      cursor.x-(cursor.x%32)>=waypoint[i].x&&
-      cursor.x-(cursor.x%32)<=waypoint[i+1].x))
+    if((waypoints[i].x=cursor.x-(cursor.x%32)&&((
+      cursor.y-(cursor.y%32)<=waypoints[i].y&&
+      cursor.y-(cursor.y%32)>=waypoints[i+1].y)||(
+      cursor.y-(cursor.y%32)>=waypoints[i].y&&
+      cursor.y-(cursor.y%32)<=waypoints[i+1].y)))||
+     (waypoints[i].y=cursor.y-(cursor.y%32)&&((
+      cursor.x-(cursor.x%32)<=waypoints[i].x&&
+      cursor.x-(cursor.x%32)>=waypoints[i+1].x)||(
+      cursor.x-(cursor.x%32)>=waypoints[i].x&&
+      cursor.x-(cursor.x%32)<=waypoints[i+1].x))
      )
   ){
       return false;

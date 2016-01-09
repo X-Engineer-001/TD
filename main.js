@@ -222,7 +222,7 @@ function canbuild2(){
   return true;
 }
 function canbuild3(){
-  for(var i=0;i<waypoints1.length-1;i++){
+  for(var i=0;i<waypoints3.length-1;i++){
     if(
         (
           waypoints3[i].x==(cursor.x-(cursor.x%32)) &&
@@ -256,7 +256,7 @@ function canbuild3(){
   return true;
 }
 function canbuild4(){
-  for(var i=0;i<waypoints1.length-1;i++){
+  for(var i=0;i<waypoints4.length-1;i++){
     if(
         (
           waypoints4[i].x==(cursor.x-(cursor.x%32)) &&

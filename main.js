@@ -93,11 +93,10 @@ function canbuild(){
   return true;
 }
 function getunitvector(srcx,srcy,targetx,targety){
-  var a={
-    x:(targetx-srcx)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy)),
-    y:(targety-srcy)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy))
+  return {
+    x:(targetx-srcx)/Math.sqrt(Math.pow(targetx-srcx,2)+Math.pow(targety-srcy,2)),
+    y:(targety-srcy)/Math.sqrt(Math.pow(targetx-srcx,2)+Math.pow(targety-srcy,2))
   };
-  return a;
 }
 $("#gamecanvas").mousemove(function(event){
   cursor.x=event.offsetX;

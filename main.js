@@ -25,16 +25,11 @@ var enemy={
       this.x=waypoints[this.waypointsdes].x;
       this.y=waypoints[this.waypointsdes].y;
       this.waypointsdes=this.waypointsdes+1;
-      this.direction.x=getunitvector(
+      this.direction=getunitvector(
         this.x,this.y,
         waypoints[this.waypointsdes].x,
         waypoints[this.waypointsdes].y
-      ).x;
-      this.direction.y=getunitvector(
-        this.x,this.y,
-        waypoints[this.waypointsdes].x,
-        waypoints[this.waypointsdes].y
-      ).y;
+      );
     }else{
       this.x=this.x+(this.direction.x*(this.speed/FPS));
       this.y=this.y+(this.direction.y*(this.speed/FPS));
@@ -100,7 +95,7 @@ function canbuild(){
 function getunitvector(srcx,srcy,targetx,targety){
   return {
     x:(targetx-srcx)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy)),
-    y:(targety-srcy)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy)),
+    y:(targety-srcy)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy))
   };
 }
 $("#gamecanvas").mousemove(function(event){

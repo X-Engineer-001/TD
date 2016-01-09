@@ -16,7 +16,7 @@ var enemy={
   speed:64,
   direction:{x:0,y:1},
   waypointsdes:0,
-  move:function(){
+  move1:function(){
     if(iscollided(waypoints1[this.waypointsdes].x,
       waypoints1[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
@@ -136,6 +136,6 @@ function draw(){
   if(tower.x!=-1&&tower.y!=-1){
     ctx.drawImage(tower1img,tower.x,tower.y);
   }
-  enemy.move();
+  enemy.move1();
 }
 setInterval(draw,1000/FPS);

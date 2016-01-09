@@ -17,6 +17,19 @@ var enemy={
   direction:{x:0,y:1},
   waypointsdes:0,
   move:function(){
+    if(iscollided(waypoints[this.waypointsdes].x,
+      waypoints[this.waypointsdes].y,
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )){
+      this.x=waypoints[this.waypointsdes].x;
+      this.y=waypoints[this.waypointsdes].y;
+      this.waypointsdes=this.waypointsdes+1;
+      this.direction=getunitvector(
+        this.x,this.y,
+        waypoints[this.waypointsdes].x,
+        waypoints[this.waypointsdes].y
+      );
+    }
     this.x=this.x+(this.direction.x*(this.speed/FPS));
     this.y=this.y+(this.direction.y*(this.speed/FPS));
   }
@@ -59,7 +72,7 @@ function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheig
   }
 }
 function canbuild(){
-  for(var i=0;i<waypoint.length;i++){
+  for(var i=0;i<waypoints.length;i++){
     if((waypoint[i].x=cursor.x-(cursor.x%32)&&((
       cursor.y-(cursor.y%32)<=waypoint[i].y&&
       cursor.y-(cursor.y%32)>=waypoint[i+1].y)||(
@@ -76,6 +89,12 @@ function canbuild(){
     }
   }
   return true;
+}
+function getunitvector(srcx,srcy,targetx,targety){
+  return {
+    x:(targetx-srcx)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy)),
+    y:(targety-srcy)/Math.sqrt(Math.pow(targetx-srcx)+Math.pow(targety-srcy)),
+  };
 }
 $("#gamecanvas").mousemove(function(event){
   cursor.x=event.offsetX;

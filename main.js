@@ -75,16 +75,31 @@ function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheig
 }
 function canbuild(){
   for(var i=0;i<waypoints.length;i++){
-    if((waypoints[i].x=cursor.x-(cursor.x%32)&&((
-      cursor.y-(cursor.y%32)<=waypoints[i].y&&
-      cursor.y-(cursor.y%32)>=waypoints[i+1].y)||(
-      cursor.y-(cursor.y%32)>=waypoints[i].y&&
-      cursor.y-(cursor.y%32)<=waypoints[i+1].y)))||
-     (waypoints[i].y=cursor.y-(cursor.y%32)&&((
-      cursor.x-(cursor.x%32)<=waypoints[i].x&&
-      cursor.x-(cursor.x%32)>=waypoints[i+1].x)||(
-      cursor.x-(cursor.x%32)>=waypoints[i].x&&
-      cursor.x-(cursor.x%32)<=waypoints[i+1].x))
+    if(
+        (
+          waypoints[i].x==(cursor.x-(cursor.x%32)) &&
+          waypoints[i+1].x==(cursor.x-(cursor.x%32)) &&
+          (
+            (
+              cursor.y-(cursor.y%32)<=waypoints[i].y&&
+              cursor.y-(cursor.y%32)>=waypoints[i+1].y
+            )||(
+              cursor.y-(cursor.y%32)>=waypoints[i].y&&
+              cursor.y-(cursor.y%32)<=waypoints[i+1].y
+            )
+          )
+        )||(
+          waypoints[i].y==(cursor.y-(cursor.y%32)) &&
+          waypoints[i+1].y==(cursor.y-(cursor.y%32)) &&
+          (
+            (
+              cursor.x-(cursor.x%32)<=waypoints[i].x&&
+              cursor.x-(cursor.x%32)>=waypoints[i+1].x
+            )||(
+              cursor.x-(cursor.x%32)>=waypoints[i].x&&
+              cursor.x-(cursor.x%32)<=waypoints[i+1].x
+            )
+          )
      )
   ){
       return false;

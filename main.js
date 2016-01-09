@@ -56,6 +56,7 @@ var enemy={
   }
 };
 enemy.waypointschoice();
+alert(enemy.choice);
 var tower={
   x:-1,
   y:-1

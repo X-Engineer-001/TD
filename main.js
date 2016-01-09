@@ -16,18 +16,30 @@ var enemy={
   speed:64,
   direction:{x:0,y:1},
   waypointsdes:0,
-  move1:function(){
-    if(iscollided(waypoints1[this.waypointsdes].x,
-      waypoints1[this.waypointsdes].y,
+  waypointschoice:function(){
+    this.choiceflag=Math.floor(Math.random()*4);
+    if(this.choiceflag==0){
+      this.choice=waypoints1
+    }else if(this.choiceflag==1){
+      this.choice=waypoints2
+    }else if(this.choiceflag==2){
+      this.choice=waypoints3
+    }else if(this.choiceflag==3){
+      this.choice=waypoints4
+    }
+  },
+  move:function(){
+    if(iscollided(this.choice[this.waypointsdes].x,
+      this.choice[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
-      this.x=waypoints1[this.waypointsdes].x;
-      this.y=waypoints1[this.waypointsdes].y;
+      this.x=this.choice[this.waypointsdes].x;
+      this.y=this.choice[this.waypointsdes].y;
       this.waypointsdes=this.waypointsdes+1;
       this.direction=getunitvector(
         this.x,this.y,
-        waypoints1[this.waypointsdes].x,
-        waypoints1[this.waypointsdes].y
+        this.choice[this.waypointsdes].x,
+        this.choice[this.waypointsdes].y
       );
     }else{
       this.x=this.x+(this.direction.x*(this.speed/FPS));
@@ -35,6 +47,7 @@ var enemy={
     }
   }
 };
+enemy.waypointschoice();
 var tower={
   x:-1,
   y:-1
@@ -60,6 +73,74 @@ var waypoints1=[
   {x:12*32,y:2*32},
   {x:12*32,y:1*32},
   {x:20*32,y:1*32}
+];
+var waypoints2=[
+  {x:7*32,y:2*32},
+  {x:4*32,y:2*32},
+  {x:4*32,y:1*32},
+  {x:2*32,y:1*32},
+  {x:2*32,y:4*32},
+  {x:1*32,y:4*32},
+  {x:1*32,y:13*32},
+  {x:3*32,y:13*32},
+  {x:3*32,y:11*32},
+  {x:5*32,y:11*32},
+  {x:5*32,y:12*32},
+  {x:7*32,y:12*32},
+  {x:7*32,y:9*32},
+  {x:6*32,y:9*32},
+  {x:6*32,y:7*32},
+  {x:12*32,y:7*32},
+  {x:12*32,y:5*32},
+  {x:14*32,y:5*32},
+  {x:14*32,y:4*32},
+  {x:20*32,y:4*32}
+];
+var waypoints3=[
+  {x:7*32,y:2*32},
+  {x:4*32,y:2*32},
+  {x:4*32,y:1*32},
+  {x:2*32,y:1*32},
+  {x:2*32,y:4*32},
+  {x:1*32,y:4*32},
+  {x:1*32,y:13*32},
+  {x:3*32,y:13*32},
+  {x:3*32,y:11*32},
+  {x:5*32,y:11*32},
+  {x:5*32,y:12*32},
+  {x:7*32,y:12*32},
+  {x:7*32,y:9*32},
+  {x:12*32,y:9*32},
+  {x:12*32,y:11*32},
+  {x:16*32,y:11*32},
+  {x:16*32,y:9*32},
+  {x:14*32,y:9*32},
+  {x:14*32,y:7*32},
+  {x:16*32,y:7*32},
+  {x:16*32,y:6*32},
+  {x:20*32,y:6*32}
+];
+var waypoints4=[
+  {x:7*32,y:2*32},
+  {x:4*32,y:2*32},
+  {x:4*32,y:1*32},
+  {x:2*32,y:1*32},
+  {x:2*32,y:4*32},
+  {x:1*32,y:4*32},
+  {x:1*32,y:13*32},
+  {x:3*32,y:13*32},
+  {x:3*32,y:11*32},
+  {x:5*32,y:11*32},
+  {x:5*32,y:12*32},
+  {x:7*32,y:12*32},
+  {x:7*32,y:9*32},
+  {x:12*32,y:9*32},
+  {x:12*32,y:11*32},
+  {x:9*32,y:11*32},
+  {x:9*32,y:13*32},
+  {x:18*32,y:13*32},
+  {x:18*32,y:9*32},
+  {x:20*32,y:9*32}
 ];
 function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheight){
   if(waypointsx>=targetx&&
@@ -136,6 +217,6 @@ function draw(){
   if(tower.x!=-1&&tower.y!=-1){
     ctx.drawImage(tower1img,tower.x,tower.y);
   }
-  enemy.move1();
+  enemy.move();
 }
 setInterval(draw,1000/FPS);

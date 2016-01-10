@@ -134,7 +134,7 @@ var enemy={
   }
 };
 enemy.waypointschoice();
-var tower={
+var tower1={
   x:-1,
   y:-1
 };
@@ -305,8 +305,8 @@ $("#gamecanvas").click(function(){
     isbuilding=!isbuilding
   }
   if(isbuilding==true&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()){
-    tower.x=cursor.x-(cursor.x%32);
-    tower.y=cursor.y-(cursor.y%32);
+    tower1.x=cursor.x-(cursor.x%32);
+    tower1.y=cursor.y-(cursor.y%32);
   }
 });
 function draw(){
@@ -316,8 +316,8 @@ function draw(){
   if(isbuilding==true){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
-  if(tower.x!=-1&&tower.y!=-1){
-    ctx.drawImage(tower1img,tower.x,tower.y);
+  if(tower1.x!=-1&&tower1.y!=-1){
+    ctx.drawImage(tower1img,tower1.x,tower1.y);
   }
   enemy.move();
 }

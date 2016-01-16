@@ -314,7 +314,7 @@ $("#gamecanvas").click(function(){
 function draw(){
   clock=clock+1;
   if((clock%(FPS+enemyclock))==0){
-    enemyclock=(Math.floor(Math.random()*11)*10);
+    enemyclock=(Math.floor(Math.random()*11)+5)*10;
     var newenemy=new Enemy();
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();

@@ -100,7 +100,7 @@ var waypoints4=[
 function Enemy(){
   this.x=224,
   this.y=0,
-  this.speed=256,
+  this.speed=64,
   this.direction={x:0,y:1},
   this.waypointsdes=0,
   this.waypointschoice=function(){

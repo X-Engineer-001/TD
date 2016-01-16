@@ -12,6 +12,7 @@ var ctx=canvas.getContext("2d");
 var isbuilding=false;
 var clock=0;
 var enemyclock=1;
+var playerhp=100;
 var waypoints1=[
   {x:7*32,y:2*32},
   {x:4*32,y:2*32},
@@ -102,6 +103,7 @@ function Enemy(){
   this.x=224,
   this.y=0,
   this.speed=64,
+  this.hp=,
   this.direction={x:0,y:1},
   this.waypointsdes=0,
   this.waypointschoice=function(){
@@ -121,6 +123,10 @@ function Enemy(){
       this.choice[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
+      if(this.waypointsdes==this.choice.length-1){
+        this.hp=0;
+        playerhp=playerhp-10;
+      }else{
       this.x=this.choice[this.waypointsdes].x;
       this.y=this.choice[this.waypointsdes].y;
       this.waypointsdes=this.waypointsdes+1;
@@ -129,6 +135,7 @@ function Enemy(){
         this.choice[this.waypointsdes].x,
         this.choice[this.waypointsdes].y
       );
+      }
     }else{
       this.x=this.x+(this.direction.x*(this.speed/FPS));
       this.y=this.y+(this.direction.y*(this.speed/FPS));
@@ -323,7 +330,11 @@ function draw(){
   ctx.drawImage(tower1btnimg,640,0);
   for(var i=0;i<enemies.length;i++){
     enemies[i].move();
+    if(enemies[i].hp<=0){
+      enemies.splice(i,1);
+    }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
+    }
   }
   if(isbuilding==true){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
@@ -331,5 +342,6 @@ function draw(){
   if(tower1.x!=-1&&tower1.y!=-1){
     ctx.drawImage(tower1img,tower1.x,tower1.y);
   }
+  ctx.fillText("HP:"+playerhp,16,32);
 }
 setInterval(draw,1000/FPS);

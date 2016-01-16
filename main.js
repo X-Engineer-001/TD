@@ -317,12 +317,12 @@ function draw(){
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();
   }
+  ctx.drawImage(bgimg,0,0);
+  ctx.drawImage(tower1btnimg,640,0);
   for(var i=0;i<enemies.length;i++){
     enemies[i].move();
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
   }
-  ctx.drawImage(bgimg,0,0);
-  ctx.drawImage(tower1btnimg,640,0);
   if(isbuilding==true){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }

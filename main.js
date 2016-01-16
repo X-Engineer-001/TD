@@ -135,7 +135,6 @@ function Enemy(){
   }
 };
 var enemies=[];
-enemy.waypointschoice();
 var tower1={
   x:-1,
   y:-1
@@ -316,10 +315,11 @@ function draw(){
   if((clock%FPS)==0){
     var newenemy=new Enemy();
     enemies.push(newenemy);
+    enemies[enemies.length-1].waypointschoice();
   }
   for(var i=0;i<enemies.length;i++){
-    enemy[i].move();
-    ctx.drawImage(enemyimg,enemy[i].x,enemy[i].y);
+    enemies[i].move();
+    ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
   }
   ctx.drawImage(bgimg,0,0);
   ctx.drawImage(tower1btnimg,640,0);

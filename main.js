@@ -10,6 +10,7 @@ tower1btnimg.src="images/tower1btn.jpg";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=false;
+var clock=0;
 var waypoints1=[
   {x:7*32,y:2*32},
   {x:4*32,y:2*32},
@@ -133,7 +134,7 @@ function Enemy(){
     }
   }
 };
-var enemy=new Enemy();
+var enemies=[];
 enemy.waypointschoice();
 var tower1={
   x:-1,
@@ -311,8 +312,16 @@ $("#gamecanvas").click(function(){
   }
 });
 function draw(){
+  clock=clock+1;
+  if((clock%FPS)==0){
+    var newenemy=new Enemy();
+    enemies.push(newenemy);
+  }
+  for(var i=0;i<enemies.length;i++){
+    enemy[i].move();
+    ctx.drawImage(enemyimg,enemy[i].x,enemy[i].y);
+  }
   ctx.drawImage(bgimg,0,0);
-  ctx.drawImage(enemyimg,enemy.x,enemy.y);
   ctx.drawImage(tower1btnimg,640,0);
   if(isbuilding==true){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
@@ -320,6 +329,5 @@ function draw(){
   if(tower1.x!=-1&&tower1.y!=-1){
     ctx.drawImage(tower1img,tower1.x,tower1.y);
   }
-  enemy.move();
 }
 setInterval(draw,1000/FPS);

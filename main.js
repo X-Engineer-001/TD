@@ -96,13 +96,13 @@ var waypoints4=[
   {x:18*32,y:9*32},
   {x:20*32,y:9*32}
 ];
-var enemy={
-  x:224,
-  y:0,
-  speed:256,
-  direction:{x:0,y:1},
-  waypointsdes:0,
-  waypointschoice:function(){
+function Enemy(){
+  this.x=224,
+  this.y=0,
+  this.speed=256,
+  this.direction={x:0,y:1},
+  this.waypointsdes=0,
+  this.waypointschoice=function(){
     this.choiceflag=Math.floor(Math.random()*4);
     if(this.choiceflag==0){
       this.choice=waypoints1
@@ -114,7 +114,7 @@ var enemy={
       this.choice=waypoints4
     }
   },
-  move:function(){
+  this.move=function(){
     if(iscollided(this.choice[this.waypointsdes].x,
       this.choice[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
@@ -133,6 +133,7 @@ var enemy={
     }
   }
 };
+var enemy=new Enemy();
 enemy.waypointschoice();
 var tower1={
   x:-1,

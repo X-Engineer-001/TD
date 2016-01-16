@@ -123,7 +123,7 @@ function Enemy(){
       this.choice[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
-      if(this.waypointsdes==this.choice.length-1){
+      if(this.waypointsdes===this.choice.length-1){
         this.hp=0;
         playerhp=playerhp-10;
       }else{

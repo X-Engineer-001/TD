@@ -11,6 +11,7 @@ var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=false;
 var clock=0;
+var enemyclock=1;
 var waypoints1=[
   {x:7*32,y:2*32},
   {x:4*32,y:2*32},
@@ -312,7 +313,8 @@ $("#gamecanvas").click(function(){
 });
 function draw(){
   clock=clock+1;
-  if((clock%FPS)==0){
+  if((clock%(FPS+enemyclock))==0){
+    enemyclock=(Math.floor(Math.random()*11)*10);
     var newenemy=new Enemy();
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();

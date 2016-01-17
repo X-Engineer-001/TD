@@ -13,6 +13,8 @@ var tower2btnimg=document.createElement("img");
 tower2btnimg.src="images/tower2btn.jpg";
 var boximg=document.createElement("img");
 boximg.src="images/box.png";
+var hpimg=document.createElement("img");
+hpimg.src="images/hp.jpg";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=0;
@@ -392,6 +394,71 @@ function draw(){
       ctx.drawImage(tower2img,towers[i].x,towers[i].y);
     }
   }
-  ctx.fillText("HP:"+playerhp,16,32);
+  if(playerhp==100){
+    ctx.drawImage(hpimg,640,160);
+    ctx.drawImage(hpimg,640,192);
+    ctx.drawImage(hpimg,640,224);
+    ctx.drawImage(hpimg,640,256);
+    ctx.drawImage(hpimg,640,288);
+    ctx.drawImage(hpimg,640,320);
+    ctx.drawImage(hpimg,640,352);
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==90){
+    ctx.drawImage(hpimg,640,192);
+    ctx.drawImage(hpimg,640,224);
+    ctx.drawImage(hpimg,640,256);
+    ctx.drawImage(hpimg,640,288);
+    ctx.drawImage(hpimg,640,320);
+    ctx.drawImage(hpimg,640,352);
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==80){
+    ctx.drawImage(hpimg,640,224);
+    ctx.drawImage(hpimg,640,256);
+    ctx.drawImage(hpimg,640,288);
+    ctx.drawImage(hpimg,640,320);
+    ctx.drawImage(hpimg,640,352);
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==70){
+    ctx.drawImage(hpimg,640,256);
+    ctx.drawImage(hpimg,640,288);
+    ctx.drawImage(hpimg,640,320);
+    ctx.drawImage(hpimg,640,352);
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==60){
+    ctx.drawImage(hpimg,640,288);
+    ctx.drawImage(hpimg,640,320);
+    ctx.drawImage(hpimg,640,352);
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==50){
+    ctx.drawImage(hpimg,640,320);
+    ctx.drawImage(hpimg,640,352);
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==40){
+    ctx.drawImage(hpimg,640,352);
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==30){
+    ctx.drawImage(hpimg,640,384);
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==20){
+    ctx.drawImage(hpimg,640,416);
+    ctx.drawImage(hpimg,640,448);
+  }else if(playerhp==10){
+    ctx.drawImage(hpimg,640,448);
+  }
 }
 setInterval(draw,1000/FPS);

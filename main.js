@@ -377,6 +377,7 @@ function draw(){
   }
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);
+  ctx.drawImage(tower2btnimg,672,0);
   if(isbuilding==1){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }

@@ -195,7 +195,7 @@ function canbuild1(){
      )
   ){
       return false;
-      Console.log("Can't build !");
+      console.log("Can not build !");
     }
   }
   return true;

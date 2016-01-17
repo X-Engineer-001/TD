@@ -11,7 +11,7 @@ var boximg=document.createElement("img");
 boximg.src="images/box.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
-var isbuilding=false;
+var isbuilding=0;
 var clock=0;
 var enemyclock=1;
 var playerhp=100;
@@ -326,9 +326,13 @@ $("#gamecanvas").mousemove(function(event){
 });
 $("#gamecanvas").click(function(){
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
-    isbuilding=!isbuilding
+    if(isbuilding!=1){
+      isbuilding=1;
+    }else{
+      isbuilding=0;
+    }
   }
-  if(isbuilding==true&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
+  if(isbuilding==1&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
     var newtower=new Tower1();
     towers.push(newtower);
   }
@@ -352,7 +356,7 @@ function draw(){
   }
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);
-  if(isbuilding==true){
+  if(isbuilding!=0){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
   for(var i=0;i<towers.length;i++){

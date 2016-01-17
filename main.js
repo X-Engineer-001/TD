@@ -7,6 +7,10 @@ var tower1img=document.createElement("img");
 tower1img.src="images/tower1.jpg";
 var tower1btnimg=document.createElement("img");
 tower1btnimg.src="images/tower1btn.jpg";
+var tower2img=document.createElement("img");
+tower2img.src="images/tower2.jpg";
+var tower2btnimg=document.createElement("img");
+tower2btnimg.src="images/tower2btn.jpg";
 var boximg=document.createElement("img");
 boximg.src="images/box.png";
 var canvas=document.getElementById("gamecanvas");
@@ -150,6 +154,12 @@ var cursor={
   y:0
 };
 function Tower1(){
+  this.tower=1;
+  this.x=cursor.x-(cursor.x%32);
+  this.y=cursor.y-(cursor.y%32);
+}
+function Tower2(){
+  this.tower=2;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
 }
@@ -332,8 +342,19 @@ $("#gamecanvas").click(function(){
       isbuilding=0;
     }
   }
+  if(cursor.x>672&&cursor.x<704&&cursor.y>0&&cursor.y<32){
+    if(isbuilding!=2){
+      isbuilding=2;
+    }else{
+      isbuilding=0;
+    }
+  }
   if(isbuilding==1&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
     var newtower=new Tower1();
+    towers.push(newtower);
+  }
+  if(isbuilding==2&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
+    var newtower=new Tower2();
     towers.push(newtower);
   }
 });
@@ -356,11 +377,19 @@ function draw(){
   }
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);
-  if(isbuilding!=0){
+  if(isbuilding==1){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
+  if(isbuilding==2){
+      ctx.drawImage(tower2img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
+  }
   for(var i=0;i<towers.length;i++){
-    ctx.drawImage(tower1img,towers[i].x,towers[i].y);
+    if(towers[i].tower==1){
+      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==2){
+      ctx.drawImage(tower2img,towers[i].x,towers[i].y);
+    }
   }
   ctx.fillText("HP:"+playerhp,16,32);
 }

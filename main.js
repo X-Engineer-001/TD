@@ -102,12 +102,12 @@ var waypoints4=[
   {x:20*32,y:9*32}
 ];
 function Enemy(){
-  this.x=224,
-  this.y=0,
-  this.speed=64,
-  this.hp=10,
-  this.direction={x:0,y:1},
-  this.waypointsdes=0,
+  this.x=224;
+  this.y=0;
+  this.speed=64;
+  this.hp=10;
+  this.direction={x:0,y:1};
+  this.waypointsdes=0;
   this.waypointschoice=function(){
     this.choiceflag=Math.floor(Math.random()*4);
     if(this.choiceflag==0){
@@ -119,7 +119,7 @@ function Enemy(){
     }else if(this.choiceflag==3){
       this.choice=waypoints4
     }
-  },
+  };
   this.move=function(){
     if(iscollided(this.choice[this.waypointsdes].x,
       this.choice[this.waypointsdes].y,
@@ -142,17 +142,18 @@ function Enemy(){
       this.x=this.x+(this.direction.x*(this.speed/FPS));
       this.y=this.y+(this.direction.y*(this.speed/FPS));
     }
-  }
-};
+  };
+}
 var enemies=[];
-var tower1={
-  x:-1,
-  y:-1
-};
 var cursor={
   x:0,
   y:0
 };
+function Tower1(){
+  this.x=cursor.x-(cursor.x%32);
+  this.y=cursor.y-(cursor.y%32);
+}
+var towers=[];
 function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheight){
   if(waypointsx>=targetx&&
     waypointsx<=targetx+targetwidth&&
@@ -300,6 +301,14 @@ function canbuild4(){
   }
   return true;
 }
+function canbuildT(){
+  for(var i=0;i<towers.length;i++){
+    if(cursor.x-(cursor.x%32)==towers[i].x&&cursor.y-(cursor.y%32)==towers[i].y){
+      return false;
+    }
+  }
+  return true;
+}
 function getunitvector(srcx,srcy,targetx,targety){
   return {
     x:(targetx-srcx)/Math.sqrt(Math.pow(targetx-srcx,2)+Math.pow(targety-srcy,2)),
@@ -316,8 +325,8 @@ $("#gamecanvas").click(function(){
     isbuilding=!isbuilding
   }
   if(isbuilding==true&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()){
-    tower1.x=cursor.x-(cursor.x%32);
-    tower1.y=cursor.y-(cursor.y%32);
+    var newtower=new Tower1();
+    towers.push(newtower);
   }
 });
 function draw(){
@@ -342,8 +351,8 @@ function draw(){
   if(isbuilding==true){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
-  if(tower1.x!=-1&&tower1.y!=-1){
-    ctx.drawImage(tower1img,tower1.x,tower1.y);
+  for(var i=0;i<towers.length;i++){
+    ctx.drawImage(tower1img,towers[i].x,towers[i].y);
   }
   ctx.fillText("HP:"+playerhp,16,32);
 }

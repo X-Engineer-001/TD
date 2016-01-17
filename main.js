@@ -194,8 +194,8 @@ function canbuild1(){
           )
      )
   ){
+      console.log("Can't build !");
       return false;
-      console.log("Can not build !");
     }
   }
   return true;
@@ -229,8 +229,8 @@ function canbuild2(){
           )
      )
   ){
+      console.log("Can't build !");
       return false;
-      Console.log("Can't build !");
     }
   }
   return true;
@@ -264,8 +264,8 @@ function canbuild3(){
           )
      )
   ){
+      console.log("Can't build !");
       return false;
-      Console.log("Can't build !");
     }
   }
   return true;
@@ -299,8 +299,8 @@ function canbuild4(){
           )
      )
   ){
+      console.log("Can't build !");
       return false;
-      Console.log("Can't build !");
     }
   }
   return true;
@@ -308,8 +308,8 @@ function canbuild4(){
 function canbuildT(){
   for(var i=0;i<towers.length;i++){
     if(cursor.x-(cursor.x%32)==towers[i].x&&cursor.y-(cursor.y%32)==towers[i].y){
+      console.log("There's already a tower here !");
       return false;
-      Console.log("There is already a tower here !");
     }
   }
   return true;
@@ -325,7 +325,6 @@ $("#gamecanvas").mousemove(function(event){
   cursor.y=event.offsetY;
 });
 $("#gamecanvas").click(function(){
-
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
     isbuilding=!isbuilding
   }

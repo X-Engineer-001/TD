@@ -195,7 +195,7 @@ function canbuild1(){
      )
   ){
       return false;
-      console.log("Can't build !");
+      Console.log("Can't build !");
     }
   }
   return true;
@@ -230,7 +230,7 @@ function canbuild2(){
      )
   ){
       return false;
-      console.log("Can't build !");
+      Console.log("Can't build !");
     }
   }
   return true;
@@ -265,7 +265,7 @@ function canbuild3(){
      )
   ){
       return false;
-      console.log("Can't build !");
+      Console.log("Can't build !");
     }
   }
   return true;
@@ -300,7 +300,7 @@ function canbuild4(){
      )
   ){
       return false;
-      console.log("Can't build !");
+      Console.log("Can't build !");
     }
   }
   return true;
@@ -309,7 +309,7 @@ function canbuildT(){
   for(var i=0;i<towers.length;i++){
     if(cursor.x-(cursor.x%32)==towers[i].x&&cursor.y-(cursor.y%32)==towers[i].y){
       return false;
-      console.log("There is already a tower here !");
+      Console.log("There is already a tower here !");
     }
   }
   return true;

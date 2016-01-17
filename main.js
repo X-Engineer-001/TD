@@ -195,6 +195,7 @@ function canbuild1(){
      )
   ){
       return false;
+      console.log("Can't build !");
     }
   }
   return true;
@@ -229,6 +230,7 @@ function canbuild2(){
      )
   ){
       return false;
+      console.log("Can't build !");
     }
   }
   return true;
@@ -263,6 +265,7 @@ function canbuild3(){
      )
   ){
       return false;
+      console.log("Can't build !");
     }
   }
   return true;
@@ -297,6 +300,7 @@ function canbuild4(){
      )
   ){
       return false;
+      console.log("Can't build !");
     }
   }
   return true;
@@ -305,6 +309,7 @@ function canbuildT(){
   for(var i=0;i<towers.length;i++){
     if(cursor.x-(cursor.x%32)==towers[i].x&&cursor.y-(cursor.y%32)==towers[i].y){
       return false;
+      console.log("There is already a tower here !");
     }
   }
   return true;
@@ -324,7 +329,7 @@ $("#gamecanvas").click(function(){
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
     isbuilding=!isbuilding
   }
-  if(isbuilding==true&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()){
+  if(isbuilding==true&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
     var newtower=new Tower1();
     towers.push(newtower);
   }

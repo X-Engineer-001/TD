@@ -367,7 +367,7 @@ $("#gamecanvas").click(function(){
 function draw(){
   clock=clock+1;
   enemyclock=enemyclock+1
-  if((enemyclock%((FPS/2)+enemyclockrandom))==0){
+  if((enemyclock%((FPS/4*3)+enemyclockrandom))==0){
     enemyclock=0;
     enemyclockrandom=Math.floor(Math.random()*11)*10;
     var newenemy=new Enemy();

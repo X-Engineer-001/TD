@@ -15,11 +15,14 @@ var boximg=document.createElement("img");
 boximg.src="images/box.png";
 var hpimg=document.createElement("img");
 hpimg.src="images/hp.jpg";
+var enemyhpimg=document.createElement("img");
+enemyhpimg.src="images/enemyhp.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=0;
 var clock=0;
-var enemyclock=1;
+var enemyclock=0;
+var enemyclockrandom=0;
 var playerhp=100;
 var waypoints1=[
   {x:7*32,y:2*32},
@@ -111,6 +114,7 @@ function Enemy(){
   this.x=224;
   this.y=0;
   this.speed=64;
+  this.fullhp=10;
   this.hp=10;
   this.direction={x:0,y:1};
   this.waypointsdes=0;
@@ -362,8 +366,10 @@ $("#gamecanvas").click(function(){
 });
 function draw(){
   clock=clock+1;
-  if((clock%(FPS+enemyclock))==0){
-    enemyclock=(Math.floor(Math.random()*11)+5)*10;
+  enemyclock=enemyclock+1
+  if((enemyclock%((FPS/2)+enemyclockrandom))==0){
+    enemyclock=0;
+    enemyclockrandom=Math.floor(Math.random()*11)*10;
     var newenemy=new Enemy();
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();
@@ -375,6 +381,7 @@ function draw(){
       enemies.splice(i,1);
     }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
+    ctx.drawImage(enemyhpimg,(enemies[i].x+3),(enemies[i].y-5),((26/enemies[i].fullhp)*enemies[i].hp),3);
     }
   }
   ctx.drawImage(boximg,640,0);

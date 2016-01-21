@@ -387,12 +387,6 @@ function draw(){
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);
   ctx.drawImage(tower2btnimg,672,0);
-  if(isbuilding==1){
-      ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
-  }
-  if(isbuilding==2){
-      ctx.drawImage(tower2img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
-  }
   for(var i=0;i<towers.length;i++){
     if(towers[i].tower==1){
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
@@ -400,6 +394,12 @@ function draw(){
     if(towers[i].tower==2){
       ctx.drawImage(tower2img,towers[i].x,towers[i].y);
     }
+  }
+  if(isbuilding==1){
+      ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
+  }
+  if(isbuilding==2){
+      ctx.drawImage(tower2img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
   if(playerhp==100){
     ctx.drawImage(hpimg,640,160);

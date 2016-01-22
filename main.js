@@ -132,6 +132,19 @@ function Enemy(){
     }
   };
   this.move=function(){
+    if(iscollided((this.x-(this.x%32))+32,this.y,
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )){
+      this.x=(this.x-(this.x%32))+32
+    }
+    if(iscollided(this.x,(this.y-(this.y%32))+32,
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )){
+      this.y=(this.y-(this.y%32))+32
+    }
+    if(this.x%32==0&&this.y%32==0&&this.delay<=0){
+      this.delay=FPS/4;
+    }
     if(this.delay>0){
       this.delay=this.delay-1;
     }else if(iscollided(this.choice[this.waypointsdes].x,
@@ -151,22 +164,12 @@ function Enemy(){
         this.choice[this.waypointsdes].y
       );
       }
-    }else{
+    }else if(this.speed/FPS<=32){
       this.x=this.x+(this.direction.x*(this.speed/FPS));
       this.y=this.y+(this.direction.y*(this.speed/FPS));
-    }
-    if(iscollided((this.x-(this.x%32))+32,this.y,
-      this.x,this.y,this.speed/FPS,this.speed/FPS
-    )){
-      this.x=(this.x-(this.x%32))+32
-    }
-    if(iscollided(this.x,(this.y-(this.y%32))+32,
-      this.x,this.y,this.speed/FPS,this.speed/FPS
-    )){
-      this.y=(this.y-(this.y%32))+32
-    }
-    if(this.x%32==0&&this.y%32==0&&this.delay<=0){
-      this.delay=FPS/4;
+    }else{
+      this.x=this.x+(this.direction.x*32);
+      this.y=this.y+(this.direction.y*32);
     }
   };
 }

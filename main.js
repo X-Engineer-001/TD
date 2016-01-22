@@ -166,7 +166,8 @@ function Enemy(){
           this.choice[this.waypointsdes].y
         );
         }
-      }else if(this.speed/FPS<=32){
+      }
+      if(this.speed/FPS<=32){
         this.x=this.x+(this.direction.x*(this.speed/FPS));
         this.y=this.y+(this.direction.y*(this.speed/FPS));
       }else{

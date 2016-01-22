@@ -155,7 +155,16 @@ function Enemy(){
       this.x=this.x+(this.direction.x*(this.speed/FPS));
       this.y=this.y+(this.direction.y*(this.speed/FPS));
     }
-    if(this.x%32==0&&this.y%32==0){
+    if(iscollided((this.x-(this.x%32))+32,this.y,
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )&&this.delay<=0){
+      this.x=(this.x-(this.x%32))+32
+      this.delay=FPS/4;
+    }
+    if(iscollided(this.x,(this.y-(this.y%32))+32,
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )&&this.delay<=0){
+      this.y=(this.y-(this.y%32))+32
       this.delay=FPS/4;
     }
   };
@@ -176,11 +185,11 @@ function Tower2(){
   this.y=cursor.y-(cursor.y%32);
 }
 var towers=[];
-function iscollided(waypointsx,waypointsy,targetx,targety,targetwidth,targetheight){
-  if(waypointsx>=targetx&&
-    waypointsx<=targetx+targetwidth&&
-    waypointsy>=targety&&
-    waypointsy<=targety+targetheight
+function iscollided(x,y,targetx,targety,targetwidth,targetheight){
+  if(x>=targetx&&
+    x<=targetx+targetwidth&&
+    y>=targety&&
+    y<=targety+targetheight
   ){
     return true;
   }else{

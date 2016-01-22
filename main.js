@@ -157,14 +157,15 @@ function Enemy(){
     }
     if(iscollided((this.x-(this.x%32))+32,this.y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
-    )&&this.delay<=0){
+    )){
       this.x=(this.x-(this.x%32))+32
-      this.delay=FPS/4;
     }
     if(iscollided(this.x,(this.y-(this.y%32))+32,
       this.x,this.y,this.speed/FPS,this.speed/FPS
-    )&&this.delay<=0){
+    )){
       this.y=(this.y-(this.y%32))+32
+    }
+    if(this.x%32==0&&this.y%32==0&&this.delay<=0){
       this.delay=FPS/4;
     }
   };

@@ -143,15 +143,13 @@ function Enemy(){
       this.y=(this.y-(this.y%32))+32;
     }
     if(this.direction.x==-1&&iscollided((this.x-(this.x%32)),this.y,
-      this.x,this.y,-1*this.speed/FPS,-1*this.speed/FPS
+      this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
-      console.log("text");
       this.x=(this.x-(this.x%32));
     }
     if(this.direction.y==-1&&iscollided(this.x,(this.y-(this.y%32)),
-      this.x,this.y,-1*this.speed/FPS,-1*this.speed/FPS
+      this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
-      console.log("text");
       this.y=(this.y-(this.y%32));
     }
     if(this.x%32==0&&this.y%32==0&&this.delay<=0){
@@ -206,11 +204,15 @@ function Tower2(){
 }
 var towers=[];
 function iscollided(x,y,targetx,targety,targetwidth,targetheight){
-  if(x>=targetx&&
+  if((x>=targetx&&
     x<=targetx+targetwidth&&
     y>=targety&&
-    y<=targety+targetheight
-  ){
+    y<=targety+targetheight)||(
+    x<=targetx&&
+    x>=targetx-targetwidth&&
+    y<=targety&&
+    y>=targety-targetheight
+    )){
     return true;
   }else{
     return false;

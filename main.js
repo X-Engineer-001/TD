@@ -145,11 +145,13 @@ function Enemy(){
     if(this.direction.x==-1&&iscollided((this.x-(this.x%32)),this.y,
       this.x,this.y,-1*this.speed/FPS,-1*this.speed/FPS
     )){
+      console.log("text");
       this.x=(this.x-(this.x%32));
     }
     if(this.direction.y==-1&&iscollided(this.x,(this.y-(this.y%32)),
       this.x,this.y,-1*this.speed/FPS,-1*this.speed/FPS
     )){
+      console.log("text");
       this.y=(this.y-(this.y%32));
     }
     if(this.x%32==0&&this.y%32==0&&this.delay<=0){

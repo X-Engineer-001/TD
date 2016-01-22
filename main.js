@@ -142,7 +142,6 @@ function Enemy(){
         this.hp=0;
         playerhp=playerhp-10;
       }else{
-      this.delay=FPS/2;
       this.x=this.choice[this.waypointsdes].x;
       this.y=this.choice[this.waypointsdes].y;
       this.waypointsdes=this.waypointsdes+1;
@@ -155,6 +154,9 @@ function Enemy(){
     }else{
       this.x=this.x+(this.direction.x*(this.speed/FPS));
       this.y=this.y+(this.direction.y*(this.speed/FPS));
+    }
+    if(this.x%32==0&&this.y%32==0){
+      this.delay=FPS/4;
     }
   };
 }

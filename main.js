@@ -132,15 +132,25 @@ function Enemy(){
     }
   };
   this.move=function(){
-    if(this.direction.x!=0&&iscollided((this.x-((this.x%32)*this.direction.x))+(32*this.direction.x),this.y,
+    if(this.direction.x==1&&iscollided((this.x-(this.x%32))+32,this.y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
-      this.x=(this.x-((this.x%32)*this.direction.x))+(32*this.direction.x);
+      this.x=(this.x-(this.x%32))+32;
     }
-    if(this.direction.y!=0&&iscollided(this.x,(this.y-((this.y%32)*this.direction.y))+(32*this.direction.y),
+    if(this.direction.y==1&&iscollided(this.x,(this.y-(this.y%32))+32,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
-      this.y=(this.y-((this.y%32)*this.direction.y))+(32*this.direction.y);
+      this.y=(this.y-(this.y%32))+32;
+    }
+    if(this.direction.x==-1&&iscollided((this.x-(this.x%32)),this.y,
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )){
+      this.x=(this.x-(this.x%32));
+    }
+    if(this.direction.y==-1&&iscollided(this.x,(this.y-(this.y%32)),
+      this.x,this.y,this.speed/FPS,this.speed/FPS
+    )){
+      this.y=(this.y-(this.y%32));
     }
     if(this.x%32==0&&this.y%32==0&&this.delay<=0){
       this.delay=FPS/4;

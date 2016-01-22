@@ -147,29 +147,32 @@ function Enemy(){
     }
     if(this.delay>0){
       this.delay=this.delay-1;
-    }else if(iscollided(this.choice[this.waypointsdes].x,
-      this.choice[this.waypointsdes].y,
-      this.x,this.y,this.speed/FPS,this.speed/FPS
-    )){
-      if(this.waypointsdes==this.choice.length-1){
-        this.hp=0;
-        playerhp=playerhp-10;
+    }
+    if(this.delay<=0){
+      if(iscollided(this.choice[this.waypointsdes].x,
+        this.choice[this.waypointsdes].y,
+        this.x,this.y,this.speed/FPS,this.speed/FPS
+      )){
+        if(this.waypointsdes==this.choice.length-1){
+          this.hp=0;
+          playerhp=playerhp-10;
+        }else{
+        this.x=this.choice[this.waypointsdes].x;
+        this.y=this.choice[this.waypointsdes].y;
+        this.waypointsdes=this.waypointsdes+1;
+        this.direction=getunitvector(
+          this.x,this.y,
+          this.choice[this.waypointsdes].x,
+          this.choice[this.waypointsdes].y
+        );
+        }
+      }else if(this.speed/FPS<=32){
+        this.x=this.x+(this.direction.x*(this.speed/FPS));
+        this.y=this.y+(this.direction.y*(this.speed/FPS));
       }else{
-      this.x=this.choice[this.waypointsdes].x;
-      this.y=this.choice[this.waypointsdes].y;
-      this.waypointsdes=this.waypointsdes+1;
-      this.direction=getunitvector(
-        this.x,this.y,
-        this.choice[this.waypointsdes].x,
-        this.choice[this.waypointsdes].y
-      );
+        this.x=this.x+(this.direction.x*32);
+        this.y=this.y+(this.direction.y*32);
       }
-    }else if(this.speed/FPS<=32){
-      this.x=this.x+(this.direction.x*(this.speed/FPS));
-      this.y=this.y+(this.direction.y*(this.speed/FPS));
-    }else{
-      this.x=this.x+(this.direction.x*32);
-      this.y=this.y+(this.direction.y*32);
     }
   };
 }

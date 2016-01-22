@@ -375,6 +375,14 @@ function draw(){
     enemies[enemies.length-1].waypointschoice();
   }
   ctx.drawImage(bgimg,0,0);
+  for(var i=0;i<towers.length;i++){
+    if(towers[i].tower==1){
+      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==2){
+      ctx.drawImage(tower2img,towers[i].x,towers[i].y);
+    }
+  }
   for(var i=0;i<enemies.length;i++){
     enemies[i].move();
     if(enemies[i].hp<=0){
@@ -387,14 +395,6 @@ function draw(){
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);
   ctx.drawImage(tower2btnimg,672,0);
-  for(var i=0;i<towers.length;i++){
-    if(towers[i].tower==1){
-      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
-    }
-    if(towers[i].tower==2){
-      ctx.drawImage(tower2img,towers[i].x,towers[i].y);
-    }
-  }
   if(isbuilding==1){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }

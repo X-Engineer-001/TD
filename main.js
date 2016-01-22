@@ -118,6 +118,7 @@ function Enemy(){
   this.hp=10;
   this.direction={x:0,y:1};
   this.waypointsdes=0;
+  this.delay=0;
   this.waypointschoice=function(){
     this.choiceflag=Math.floor(Math.random()*4);
     if(this.choiceflag==0){
@@ -131,7 +132,9 @@ function Enemy(){
     }
   };
   this.move=function(){
-    if(iscollided(this.choice[this.waypointsdes].x,
+    if(this.delay>0){
+      this.delay=this.delay-1;
+    }else if(iscollided(this.choice[this.waypointsdes].x,
       this.choice[this.waypointsdes].y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
@@ -139,6 +142,7 @@ function Enemy(){
         this.hp=0;
         playerhp=playerhp-10;
       }else{
+      this.delay=FPS/2;
       this.x=this.choice[this.waypointsdes].x;
       this.y=this.choice[this.waypointsdes].y;
       this.waypointsdes=this.waypointsdes+1;
@@ -367,9 +371,9 @@ $("#gamecanvas").click(function(){
 function draw(){
   clock=clock+1;
   enemyclock=enemyclock+1
-  if((enemyclock%((FPS/4*3)+enemyclockrandom))==0){
+  if((enemyclock%((FPS*3/4)+enemyclockrandom))==0){
     enemyclock=0;
-    enemyclockrandom=Math.floor(Math.random()*11)*10;
+    enemyclockrandom=Math.floor(Math.random()*11)*FPS/6;
     var newenemy=new Enemy();
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();

@@ -406,7 +406,7 @@ function draw(){
   enemyclock=enemyclock+1
   if((enemyclock%(FPS+enemyclockrandom))==0){
     enemyclock=0;
-    enemyclockrandom=Math.floor(Math.random()*61)*FPS/60;
+    enemyclockrandom=Math.floor(Math.random()*121)*FPS/60;
     var newenemy=new Enemy();
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();
@@ -426,8 +426,10 @@ function draw(){
       enemies.splice(i,1);
     }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
-    ctx.drawImage(enemyhpimg,(enemies[i].x+3),(enemies[i].y-5),((26/enemies[i].fullhp)*enemies[i].hp),3);
     }
+  }
+  for(var i=0;i<enemies.length;i++){
+    ctx.drawImage(enemyhpimg,(enemies[i].x+3),(enemies[i].y-5),((26/enemies[i].fullhp)*enemies[i].hp),3);
   }
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);

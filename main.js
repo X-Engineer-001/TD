@@ -153,7 +153,7 @@ function Enemy(){
       this.y=(this.y-(this.y%32));
     }
     if(this.x%32==0&&this.y%32==0&&this.delay<=0){
-      this.delay=FPS/(Math.floor(Math.random()*3)+4);
+      this.delay=FPS/6;
     }
     if(this.delay>0){
       this.delay=this.delay-1;
@@ -406,7 +406,7 @@ function draw(){
   enemyclock=enemyclock+1
   if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
     enemyclock=0;
-    enemyclockrandom=(((Math.floor(Math.random()*101)+20)*FPS)-(((Math.floor(Math.random()*101)+20)*FPS)%60))/60;
+    enemyclockrandom=((Math.floor(Math.random()*121)*FPS)-((Math.floor(Math.random()*121)*FPS)%60))/60;
     var newenemy=new Enemy();
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();

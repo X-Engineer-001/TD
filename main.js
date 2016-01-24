@@ -14,9 +14,13 @@ tower2btnimg.src="images/tower2btn.jpg";
 var boximg=document.createElement("img");
 boximg.src="images/box.png";
 var hpimg=document.createElement("img");
-hpimg.src="images/hp.jpg";
+hpimg.src="images/hp.png";
 var enemyhpimg=document.createElement("img");
 enemyhpimg.src="images/enemyhp.png";
+var pauseimg=document.createElement("img");
+pauseimg.src="images/pause.png";
+var playimg=document.createElement("img");
+playimg.src="images/play.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=0;
@@ -24,6 +28,7 @@ var clock=0;
 var enemyclock=0;
 var enemyclockrandom=0;
 var playerhp=100;
+var pauseflag=false;
 var waypoints1=[
   {x:7*32,y:2*32},
   {x:4*32,y:2*32},
@@ -378,6 +383,10 @@ $("#gamecanvas").mousemove(function(event){
   cursor.y=event.offsetY;
 });
 $("#gamecanvas").click(function(){
+  if(cursor.x>640&&cursor.x<736&&cursor.y>64&&cursor.y<160){
+    pauseflag=!pauseflag;
+  }
+  if(!pauseflag){
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
     if(isbuilding!=1){
       isbuilding=1;
@@ -400,8 +409,10 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower2();
     towers.push(newtower);
   }
+  }
 });
 function draw(){
+  if(!pauseflag){
   clock=clock+1;
   enemyclock=enemyclock+1
   if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
@@ -431,15 +442,15 @@ function draw(){
   for(var i=0;i<enemies.length;i++){
     ctx.drawImage(enemyhpimg,(enemies[i].x+3),(enemies[i].y-5),((26/enemies[i].fullhp)*enemies[i].hp),3);
   }
-  ctx.drawImage(boximg,640,0);
-  ctx.drawImage(tower1btnimg,640,0);
-  ctx.drawImage(tower2btnimg,672,0);
   if(isbuilding==1){
       ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
   if(isbuilding==2){
       ctx.drawImage(tower2img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
+  ctx.drawImage(boximg,640,0);
+  ctx.drawImage(tower1btnimg,640,0);
+  ctx.drawImage(tower2btnimg,672,0);
   if(playerhp==100){
     ctx.drawImage(hpimg,640,160);
     ctx.drawImage(hpimg,640,192);
@@ -506,5 +517,9 @@ function draw(){
   }else if(playerhp==10){
     ctx.drawImage(hpimg,640,448);
   }
+  ctx.drawImage(pauseimg,640,64);
+}else{
+  ctx.drawImage(playimg,640,64);
+}
 }
 setInterval(draw,1000/FPS);

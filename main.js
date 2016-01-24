@@ -27,7 +27,7 @@ var isbuilding=0;
 var clock=0;
 var enemyclock=0;
 var enemyclockrandom=0;
-var playerhp=100;
+var playerhp=9;
 var pauseflag=false;
 var waypoints1=[
   {x:7*32,y:2*32},
@@ -170,7 +170,7 @@ function Enemy(){
       )){
         if(this.waypointsdes==this.choice.length-1){
           this.hp=0;
-          playerhp=playerhp-10;
+          playerhp=playerhp-1;
         }else{
         this.x=this.choice[this.waypointsdes].x;
         this.y=this.choice[this.waypointsdes].y;
@@ -451,8 +451,7 @@ function draw(){
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);
   ctx.drawImage(tower2btnimg,672,0);
-  if(playerhp==100){
-    ctx.drawImage(hpimg,640,160);
+  if(playerhp==9){
     ctx.drawImage(hpimg,640,192);
     ctx.drawImage(hpimg,640,224);
     ctx.drawImage(hpimg,640,256);
@@ -462,8 +461,7 @@ function draw(){
     ctx.drawImage(hpimg,640,384);
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==90){
-    ctx.drawImage(hpimg,640,192);
+  }else if(playerhp==8){
     ctx.drawImage(hpimg,640,224);
     ctx.drawImage(hpimg,640,256);
     ctx.drawImage(hpimg,640,288);
@@ -472,8 +470,7 @@ function draw(){
     ctx.drawImage(hpimg,640,384);
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==80){
-    ctx.drawImage(hpimg,640,224);
+  }else if(playerhp==7){
     ctx.drawImage(hpimg,640,256);
     ctx.drawImage(hpimg,640,288);
     ctx.drawImage(hpimg,640,320);
@@ -481,40 +478,32 @@ function draw(){
     ctx.drawImage(hpimg,640,384);
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==70){
-    ctx.drawImage(hpimg,640,256);
+  }else if(playerhp==6){
     ctx.drawImage(hpimg,640,288);
     ctx.drawImage(hpimg,640,320);
     ctx.drawImage(hpimg,640,352);
     ctx.drawImage(hpimg,640,384);
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==60){
-    ctx.drawImage(hpimg,640,288);
+  }else if(playerhp==5){
     ctx.drawImage(hpimg,640,320);
     ctx.drawImage(hpimg,640,352);
     ctx.drawImage(hpimg,640,384);
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==50){
-    ctx.drawImage(hpimg,640,320);
+  }else if(playerhp==4){
     ctx.drawImage(hpimg,640,352);
     ctx.drawImage(hpimg,640,384);
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==40){
-    ctx.drawImage(hpimg,640,352);
+  }else if(playerhp==3){
     ctx.drawImage(hpimg,640,384);
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==30){
-    ctx.drawImage(hpimg,640,384);
+  }else if(playerhp==2){
     ctx.drawImage(hpimg,640,416);
     ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==20){
-    ctx.drawImage(hpimg,640,416);
-    ctx.drawImage(hpimg,640,448);
-  }else if(playerhp==10){
+  }else if(playerhp==1){
     ctx.drawImage(hpimg,640,448);
   }
   ctx.drawImage(pauseimg,640,64);

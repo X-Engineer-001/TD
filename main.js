@@ -219,7 +219,11 @@ function Tower1(){
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
   this.range=100;
+  this.reload=FPS*2;
+  this.nowreload=FPS*2;
+  this.attack=8;
   this.aimingid=null;
+  this.shotting=0;
   this.serchenemy=function(){
     this.aimingid=null;
     for(var i=0;i<enemies.length;i++){
@@ -235,7 +239,11 @@ function Tower2(){
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
   this.range=100;
+  this.reload=FPS/3;
+  this.nowreload=FPS/3;
+  this.attack=2;
   this.aimingid=null;
+  this.shotting=0;
   this.serchenemy=function(){
     this.aimingid=null;
     for(var i=0;i<enemies.length;i++){
@@ -448,15 +456,38 @@ function draw(){
   }
   ctx.drawImage(bgimg,0,0);
   for(var i=0;i<towers.length;i++){
+    towers[i].serchenemy();
+    towers[i].nowreload=towers[i].nowreload-1;
+    if(towers[i].aimingid!=null){
+      if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
+        ctx.drawImage(crosshairimg,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+      }
+      if(towers[i].nowreload<=0){
+        towers[i].shotting=FPS/6;
+        enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-towers[i].attack;
+      }
+    }
     if(towers[i].tower==1){
+      if(towers[i].shotting>0){
+        ctx.moveTo(towers[i].x+16,towers[i].y+16);
+        ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
+        ctx.strokeStyle="rgb(255,0,0)";
+        ctx.lineWidth="2";
+        ctx.stroke();
+        towers[i].shotting=towers[i].shotting-1;
+      }
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
     }
     if(towers[i].tower==2){
+      if(towers[i].shotting>0){
+        ctx.moveTo(towers[i].x+16,towers[i].y+16);
+        ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
+        ctx.strokeStyle="rgb(0,0,255)";
+        ctx.lineWidth="2";
+        ctx.stroke();
+        towers[i].shotting=towers[i].shotting-1;
+      }
       ctx.drawImage(tower2img,towers[i].x,towers[i].y);
-    }
-    towers[i].serchenemy();
-    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&towers[i].aimingid!=null&&!isbuilding){
-      ctx.drawImage(crosshairimg,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
     }
   }
   for(var i=0;i<enemies.length;i++){

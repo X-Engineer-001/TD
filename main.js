@@ -21,6 +21,8 @@ var pauseimg=document.createElement("img");
 pauseimg.src="images/pause.png";
 var playimg=document.createElement("img");
 playimg.src="images/play.png";
+var crosshairimg=document.createElement("img");
+crosshairimg.src="images/crosshair.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=0;
@@ -115,6 +117,21 @@ var waypoints4=[
   {x:18*32,y:9*32},
   {x:20*32,y:9*32}
 ];
+function iscollided(x,y,targetx,targety,targetwidth,targetheight){
+  if((x>=targetx&&
+    x<=targetx+targetwidth&&
+    y>=targety&&
+    y<=targety+targetheight)||(
+    x<=targetx&&
+    x>=targetx-targetwidth&&
+    y<=targety&&
+    y>=targety-targetheight
+    )){
+    return true;
+  }else{
+    return false;
+  }
+}
 function Enemy(){
   this.x=224;
   this.y=0;
@@ -201,28 +218,35 @@ function Tower1(){
   this.tower=1;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
+  this.range=100;
+  this.aimingid=null;
+  this.serchenemy=function(){
+    this.aimingid=null;
+    for(var i=0;i<enemies.length;i++){
+      if(Math.sqrt(Math.pow(enemies[i].x-this.x,2)+Math.pow(enemies[i].y-this.y,2))<=this.range){
+        this.aimingid=i;
+        break;
+      }
+    }
+  };
 }
 function Tower2(){
   this.tower=2;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
+  this.range=100;
+  this.aimingid=null;
+  this.serchenemy=function(){
+    this.aimingid=null;
+    for(var i=0;i<enemies.length;i++){
+      if(Math.sqrt(Math.pow(enemies[i].x-this.x,2)+Math.pow(enemies[i].y-this.y,2))<=this.range){
+        this.aimingid=i;
+        break;
+      }
+    }
+  };
 }
 var towers=[];
-function iscollided(x,y,targetx,targety,targetwidth,targetheight){
-  if((x>=targetx&&
-    x<=targetx+targetwidth&&
-    y>=targety&&
-    y<=targety+targetheight)||(
-    x<=targetx&&
-    x>=targetx-targetwidth&&
-    y<=targety&&
-    y>=targety-targetheight
-    )){
-    return true;
-  }else{
-    return false;
-  }
-}
 function canbuild1(){
   for(var i=0;i<waypoints1.length-1;i++){
     if(
@@ -429,6 +453,10 @@ function draw(){
     }
     if(towers[i].tower==2){
       ctx.drawImage(tower2img,towers[i].x,towers[i].y);
+    }
+    towers[i].serchenemy();
+    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&towers[i].aimingid!=null){
+      ctx.drawImage(crosshairimg,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
     }
   }
   for(var i=0;i<enemies.length;i++){

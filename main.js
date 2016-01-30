@@ -465,6 +465,7 @@ function draw(){
       if(towers[i].nowreload<=0){
         towers[i].shotting=FPS/6;
         enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-towers[i].attack;
+        towers[i].nowreload=towers[i].reload;
       }
     }
     if(towers[i].tower==1){

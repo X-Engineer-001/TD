@@ -455,7 +455,7 @@ function draw(){
       ctx.drawImage(tower2img,towers[i].x,towers[i].y);
     }
     towers[i].serchenemy();
-    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&towers[i].aimingid!=null){
+    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&towers[i].aimingid!=null&&!isbuilding){
       ctx.drawImage(crosshairimg,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
     }
   }

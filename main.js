@@ -468,7 +468,7 @@ function draw(){
       }
     }
     if(towers[i].tower==1){
-      if(towers[i].shotting>0){
+      if(towers[i].shotting>0&&towers[i].aimingid!=null){
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
         ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
         ctx.strokeStyle="rgb(255,0,0)";
@@ -479,7 +479,7 @@ function draw(){
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
     }
     if(towers[i].tower==2){
-      if(towers[i].shotting>0){
+      if(towers[i].shotting>0&&towers[i].aimingid!=null){
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
         ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
         ctx.strokeStyle="rgb(0,0,255)";

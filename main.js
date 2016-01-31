@@ -482,7 +482,7 @@ function draw(){
         enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-towers[i].attack;
         towers[i].nowreload=towers[i].reload;
       }
-      if(towers[i].tower==1&&towers[i].shotting>0)){
+      if(towers[i].tower==1&&towers[i].shotting>0){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
         ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);

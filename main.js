@@ -21,8 +21,14 @@ var pauseimg=document.createElement("img");
 pauseimg.src="images/pause.png";
 var playimg=document.createElement("img");
 playimg.src="images/play.png";
-var crosshairimg=document.createElement("img");
-crosshairimg.src="images/crosshair.png";
+var crosshair1img=document.createElement("img");
+crosshair1img.src="images/crosshair1.png";
+var crosshair2img=document.createElement("img");
+crosshair2img.src="images/crosshair2.png";
+var range1img=document.createElement("img");
+range1img.src="images/range1.png";
+var range2img=document.createElement("img");
+range2img.src="images/range2.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=0;
@@ -218,10 +224,10 @@ function Tower1(){
   this.tower=1;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
-  this.range=100;
-  this.reload=FPS*2;
-  this.nowreload=FPS*2;
-  this.attack=8;
+  this.range=80;
+  this.reload=FPS*3;
+  this.nowreload=FPS*3;
+  this.attack=9;
   this.aimingid=null;
   this.shotting=0;
   this.serchenemy=function(){
@@ -234,6 +240,7 @@ function Tower1(){
     }
   };
 }
+var initialrange1=80;
 function Tower2(){
   this.tower=2;
   this.x=cursor.x-(cursor.x%32);
@@ -241,7 +248,7 @@ function Tower2(){
   this.range=100;
   this.reload=FPS/3;
   this.nowreload=FPS/3;
-  this.attack=2;
+  this.attack=0.5;
   this.aimingid=null;
   this.shotting=0;
   this.serchenemy=function(){
@@ -254,6 +261,7 @@ function Tower2(){
     }
   };
 }
+var initialrange2=100;
 var towers=[];
 function canbuild1(){
   for(var i=0;i<waypoints1.length-1;i++){
@@ -460,16 +468,21 @@ function draw(){
     towers[i].nowreload=towers[i].nowreload-1;
     if(towers[i].aimingid!=null){
       if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
-        ctx.drawImage(crosshairimg,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+        if(towers[i].tower==1){
+          ctx.drawImage(crosshair1img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+          ctx.drawImage(range1img,towers[i].x+16-(towers[i].range/2),towers[i].y+16-(towers[i].range/2),towers[i].range,towers[i].range);
+        }
+        if(towers[i].tower==2){
+          ctx.drawImage(crosshair2img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+          ctx.drawImage(range2img,towers[i].x+16-(towers[i].range/2),towers[i].y+16-(towers[i].range/2),towers[i].range,towers[i].range);
+        }
       }
       if(towers[i].nowreload<=0){
         towers[i].shotting=FPS/6;
         enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-towers[i].attack;
         towers[i].nowreload=towers[i].reload;
       }
-    }
-    if(towers[i].tower==1){
-      if(towers[i].shotting>0&&towers[i].aimingid!=null){
+      if(towers[i].tower==1&&towers[i].shotting>0)){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
         ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
@@ -479,10 +492,7 @@ function draw(){
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
-      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
-    }
-    if(towers[i].tower==2){
-      if(towers[i].shotting>0&&towers[i].aimingid!=null){
+      if(towers[i].tower==2&&towers[i].shotting>0){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
         ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
@@ -492,6 +502,11 @@ function draw(){
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
+    }
+    if(towers[i].tower==1){
+      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==2){
       ctx.drawImage(tower2img,towers[i].x,towers[i].y);
     }
   }
@@ -507,10 +522,12 @@ function draw(){
     ctx.drawImage(enemyhpimg,(enemies[i].x+3),(enemies[i].y-5),((26/enemies[i].fullhp)*enemies[i].hp),3);
   }
   if(isbuilding==1){
-      ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
+    ctx.drawImage(range1img,cursor.x-(cursor.x%32)+16-(initialrange1/2),cursor.y-(cursor.y%32)+16-(initialrange1/2),initialrange1,initialrange1);
+    ctx.drawImage(tower1img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
   if(isbuilding==2){
-      ctx.drawImage(tower2img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
+    ctx.drawImage(range2img,cursor.x-(cursor.x%32)+16-(initialrange2/2),cursor.y-(cursor.y%32)+16-(initialrange2/2),initialrange2,initialrange2);
+    ctx.drawImage(tower2img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);

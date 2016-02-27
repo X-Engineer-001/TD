@@ -489,7 +489,7 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower3();
     towers.push(newtower);
   }
-});
+}});
 function draw(){
   if(!pauseflag){
   clock=clock+1;

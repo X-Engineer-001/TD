@@ -11,6 +11,10 @@ var tower2img=document.createElement("img");
 tower2img.src="images/tower2.jpg";
 var tower2btnimg=document.createElement("img");
 tower2btnimg.src="images/tower2btn.jpg";
+var tower3img=document.createElement("img");
+tower3img.src="images/tower3.jpg";
+var tower3btnimg=document.createElement("img");
+tower3btnimg.src="images/tower3btn.jpg";
 var boximg=document.createElement("img");
 boximg.src="images/box.png";
 var hpimg=document.createElement("img");
@@ -25,10 +29,14 @@ var crosshair1img=document.createElement("img");
 crosshair1img.src="images/crosshair1.png";
 var crosshair2img=document.createElement("img");
 crosshair2img.src="images/crosshair2.png";
+var crosshair3img=document.createElement("img");
+crosshair3img.src="images/crosshair3.png";
 var range1img=document.createElement("img");
 range1img.src="images/range1.png";
 var range2img=document.createElement("img");
 range2img.src="images/range2.png";
+var range3img=document.createElement("img");
+range3img.src="images/range3.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 var isbuilding=0;
@@ -248,7 +256,7 @@ function Tower2(){
   this.range=100;
   this.reload=FPS/3;
   this.nowreload=FPS/3;
-  this.attack=0.5;
+  this.attack=1;
   this.aimingid=null;
   this.shotting=0;
   this.serchenemy=function(){
@@ -262,6 +270,27 @@ function Tower2(){
   };
 }
 var initialrange2=100;
+function Tower3(){
+  this.tower=3;
+  this.x=cursor.x-(cursor.x%32);
+  this.y=cursor.y-(cursor.y%32);
+  this.range=300;
+  this.reload=FPS;
+  this.nowreload=FPS;
+  this.attack=4;
+  this.aimingid=null;
+  this.shotting=0;
+  this.serchenemy=function(){
+    this.aimingid=null;
+    for(var i=0;i<enemies.length;i++){
+      if(Math.sqrt(Math.pow(enemies[i].x-this.x,2)+Math.pow(enemies[i].y-this.y,2))<=this.range){
+        this.aimingid=i;
+        break;
+      }
+    }
+  };
+}
+var initialrange3=300;
 var towers=[];
 function canbuild1(){
   for(var i=0;i<waypoints1.length-1;i++){
@@ -476,6 +505,10 @@ function draw(){
           ctx.drawImage(crosshair2img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
           ctx.drawImage(range2img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
         }
+        if(towers[i].tower==3){
+          ctx.drawImage(crosshair3img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+          ctx.drawImage(range3img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
+        }
       }
       if(towers[i].nowreload<=0){
         towers[i].shotting=FPS/6;
@@ -502,12 +535,25 @@ function draw(){
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
+      if(towers[i].tower==3&&towers[i].shotting>0){
+        ctx.beginPath();
+        ctx.moveTo(towers[i].x+16,towers[i].y+16);
+        ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
+        ctx.strokeStyle="rgb(255,255,0)";
+        ctx.lineWidth="2";
+        ctx.stroke();
+        ctx.closePath();
+        towers[i].shotting=towers[i].shotting-1;
+      }
     }
     if(towers[i].tower==1){
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
     }
     if(towers[i].tower==2){
       ctx.drawImage(tower2img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==3){
+      ctx.drawImage(tower3img,towers[i].x,towers[i].y);
     }
   }
   for(var i=0;i<enemies.length;i++){
@@ -529,9 +575,14 @@ function draw(){
     ctx.drawImage(range2img,cursor.x-(cursor.x%32)+16-initialrange2,cursor.y-(cursor.y%32)+16-initialrange2,initialrange2*2,initialrange2*2);
     ctx.drawImage(tower2img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
   }
+  if(isbuilding==3){
+    ctx.drawImage(range3img,cursor.x-(cursor.x%32)+16-initialrange3,cursor.y-(cursor.y%32)+16-initialrange3,initialrange3*2,initialrange3*2);
+    ctx.drawImage(tower3img,cursor.x-(cursor.x%32),cursor.y-(cursor.y%32));
+  }
   ctx.drawImage(boximg,640,0);
   ctx.drawImage(tower1btnimg,640,0);
   ctx.drawImage(tower2btnimg,672,0);
+  ctx.drawImage(tower3btnimg,704,0);
   if(playerhp==9){
     ctx.drawImage(hpimg,640,192);
     ctx.drawImage(hpimg,640,224);

@@ -470,6 +470,13 @@ $("#gamecanvas").click(function(){
       isbuilding=0;
     }
   }
+  if(cursor.x>704&&cursor.x<736&&cursor.y>0&&cursor.y<32){
+    if(isbuilding!=3){
+      isbuilding=3;
+    }else{
+      isbuilding=0;
+    }
+  }
   if(isbuilding==1&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
     var newtower=new Tower1();
     towers.push(newtower);
@@ -478,6 +485,9 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower2();
     towers.push(newtower);
   }
+  if(isbuilding==3&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
+    var newtower=new Tower3();
+    towers.push(newtower);
   }
 });
 function draw(){
@@ -495,21 +505,21 @@ function draw(){
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
     towers[i].nowreload=towers[i].nowreload-1;
-    if(towers[i].aimingid!=null){
-      if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
-        if(towers[i].tower==1){
-          ctx.drawImage(crosshair1img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
-          ctx.drawImage(range1img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
-        }
-        if(towers[i].tower==2){
-          ctx.drawImage(crosshair2img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
-          ctx.drawImage(range2img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
-        }
-        if(towers[i].tower==3){
-          ctx.drawImage(crosshair3img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
-          ctx.drawImage(range3img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
-        }
+    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
+      if(towers[i].tower==1){
+        ctx.drawImage(crosshair1img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+        ctx.drawImage(range1img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
       }
+      if(towers[i].tower==2){
+        ctx.drawImage(crosshair2img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+        ctx.drawImage(range2img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
+      }
+      if(towers[i].tower==3){
+        ctx.drawImage(crosshair3img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+        ctx.drawImage(range3img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
+      }
+    }
+    if(towers[i].aimingid!=null){
       if(towers[i].nowreload<=0){
         towers[i].shotting=FPS/6;
         enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-towers[i].attack;

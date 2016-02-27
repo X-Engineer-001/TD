@@ -274,7 +274,7 @@ function Tower3(){
   this.tower=3;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
-  this.range=300;
+  this.range=200;
   this.reload=FPS;
   this.nowreload=FPS;
   this.attack=4;
@@ -290,7 +290,7 @@ function Tower3(){
     }
   };
 }
-var initialrange3=300;
+var initialrange3=200;
 var towers=[];
 function canbuild1(){
   for(var i=0;i<waypoints1.length-1;i++){
@@ -658,5 +658,8 @@ function draw(){
 }else{
   ctx.drawImage(playimg,640,64);
 }
+if(playerhp<=0){
+  clearInterval(set);
 }
-setInterval(draw,1000/FPS);
+}
+var set=setInterval(draw,1000/FPS);

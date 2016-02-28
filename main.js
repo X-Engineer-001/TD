@@ -1,4 +1,7 @@
 var FPS=60;
+var money=3;
+var enemylevel=1;
+var enemycount=0;
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
 var enemyimg=document.createElement("img");
@@ -19,6 +22,8 @@ var boximg=document.createElement("img");
 boximg.src="images/box.png";
 var hpimg=document.createElement("img");
 hpimg.src="images/hp.png";
+var pointimg=document.createElement("img");
+pointimg.src="images/point.png";
 var enemyhpimg=document.createElement("img");
 enemyhpimg.src="images/enemyhp.png";
 var pauseimg=document.createElement("img");
@@ -150,8 +155,8 @@ function Enemy(){
   this.x=224;
   this.y=0;
   this.speed=64;
-  this.fullhp=10;
-  this.hp=10;
+  this.fullhp=10*enemylevel;
+  this.hp=10*enemylevel;
   this.direction={x:0,y:1};
   this.waypointsdes=0;
   this.delay=0;
@@ -202,6 +207,7 @@ function Enemy(){
         if(this.waypointsdes==this.choice.length-1){
           this.hp=0;
           playerhp=playerhp-1;
+          money=money-1;
         }else{
         this.x=this.choice[this.waypointsdes].x;
         this.y=this.choice[this.waypointsdes].y;
@@ -229,6 +235,7 @@ var cursor={
   y:0
 };
 function Tower1(){
+  this.level=1;
   this.tower=1;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
@@ -250,6 +257,7 @@ function Tower1(){
 }
 var initialrange1=80;
 function Tower2(){
+  this.level=1;
   this.tower=2;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
@@ -271,12 +279,13 @@ function Tower2(){
 }
 var initialrange2=100;
 function Tower3(){
+  this.level=1;
   this.tower=3;
   this.x=cursor.x-(cursor.x%32);
   this.y=cursor.y-(cursor.y%32);
   this.range=200;
-  this.reload=FPS;
-  this.nowreload=FPS;
+  this.reload=FPS*3/2;
+  this.nowreload=FPS*3/2;
   this.attack=4;
   this.aimingid=null;
   this.shotting=0;
@@ -477,17 +486,26 @@ $("#gamecanvas").click(function(){
       isbuilding=0;
     }
   }
-  if(isbuilding==1&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
+  if(isbuilding==1&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()&&money>0){
     var newtower=new Tower1();
     towers.push(newtower);
+    money=money-1;
   }
-  if(isbuilding==2&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
+  if(isbuilding==2&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()&&money>0){
     var newtower=new Tower2();
     towers.push(newtower);
+    money=money-1;
   }
-  if(isbuilding==3&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()){
+  if(isbuilding==3&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()&&money>0){
     var newtower=new Tower3();
     towers.push(newtower);
+    money=money-1;
+  }
+  for(var i=0;i<towers.length;i++){
+    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding&&money>0){
+      towers[i].level=towers[i].level+1;
+      money=money-1;
+    }
   }
 }});
 function draw(){
@@ -500,12 +518,19 @@ function draw(){
     var newenemy=new Enemy();
     enemies.push(newenemy);
     enemies[enemies.length-1].waypointschoice();
+    enemycount=enemycount+1
+  }
+  if(enemycount%5==0){
+    enemylevel=enemylevel+1;
   }
   ctx.drawImage(bgimg,0,0);
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
     towers[i].nowreload=towers[i].nowreload-1;
     if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
+      ctx.font="32px Arial";
+      ctx.fillStyle="white";
+      ctx.fillText(towers[i].level,towers[i].x,towers[i].y+32);
       if(towers[i].tower==1){
         if(towers[i].aimingid!=null){
           ctx.drawImage(crosshair1img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
@@ -528,7 +553,7 @@ function draw(){
     if(towers[i].aimingid!=null){
       if(towers[i].nowreload<=0){
         towers[i].shotting=FPS/6;
-        enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-towers[i].attack;
+        enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-(towers[i].attack*towers[i].level);
         towers[i].nowreload=towers[i].reload;
       }
       if(towers[i].tower==1&&towers[i].shotting>0){
@@ -576,6 +601,7 @@ function draw(){
     enemies[i].move();
     if(enemies[i].hp<=0){
       enemies.splice(i,1);
+      money=money+1;
     }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
     }
@@ -654,12 +680,70 @@ function draw(){
   }else if(playerhp==1){
     ctx.drawImage(hpimg,640,448);
   }
+  if(money==9){
+    ctx.drawImage(pointimg,704,192);
+    ctx.drawImage(pointimg,704,224);
+    ctx.drawImage(pointimg,704,256);
+    ctx.drawImage(pointimg,704,288);
+    ctx.drawImage(pointimg,704,320);
+    ctx.drawImage(pointimg,704,352);
+    ctx.drawImage(pointimg,704,384);
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==8){
+    ctx.drawImage(pointimg,704,224);
+    ctx.drawImage(pointimg,704,256);
+    ctx.drawImage(pointimg,704,288);
+    ctx.drawImage(pointimg,704,320);
+    ctx.drawImage(pointimg,704,352);
+    ctx.drawImage(pointimg,704,384);
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==7){
+    ctx.drawImage(pointimg,704,256);
+    ctx.drawImage(pointimg,704,288);
+    ctx.drawImage(pointimg,704,320);
+    ctx.drawImage(pointimg,704,352);
+    ctx.drawImage(pointimg,704,384);
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==6){
+    ctx.drawImage(pointimg,704,288);
+    ctx.drawImage(pointimg,704,320);
+    ctx.drawImage(pointimg,704,352);
+    ctx.drawImage(pointimg,704,384);
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==5){
+    ctx.drawImage(pointimg,704,320);
+    ctx.drawImage(pointimg,704,352);
+    ctx.drawImage(pointimg,704,384);
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==4){
+    ctx.drawImage(pointimg,704,352);
+    ctx.drawImage(pointimg,704,384);
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==3){
+    ctx.drawImage(pointimg,704,384);
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==2){
+    ctx.drawImage(pointimg,704,416);
+    ctx.drawImage(pointimg,704,448);
+  }else if(money==1){
+    ctx.drawImage(pointimg,704,448);
+  }
   ctx.drawImage(pauseimg,640,64);
 }else{
   ctx.drawImage(playimg,640,64);
 }
 if(playerhp<=0){
   clearInterval(set);
+  ctx.font="50px Arial";
+  ctx.fillStyle="white";
+  ctx.fillText("Game Over",150,265);
 }
 }
 var set=setInterval(draw,1000/FPS);

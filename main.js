@@ -2,6 +2,8 @@ var FPS=60;
 var money=3;
 var enemylevel=1;
 var enemycount=1;
+ctx.font="32px Arial";
+ctx.fillStyle="white";
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
 var enemyimg=document.createElement("img");
@@ -538,8 +540,6 @@ function draw(){
     towers[i].serchenemy();
     towers[i].nowreload=towers[i].nowreload-1;
     if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
-      ctx.font="32px Arial";
-      ctx.fillStyle="white";
       ctx.fillText(towers[i].level,towers[i].x,towers[i].y+32);
       if(towers[i].tower==1){
         if(towers[i].aimingid!=null){

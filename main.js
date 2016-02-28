@@ -743,7 +743,7 @@ function draw(){
 if(playerhp<=0){
   clearInterval(set);
   ctx.font="50px Arial";
-  ctx.fillStyle="white";
+  ctx.fillStyle="black";
   ctx.fillText("Game Over",150,265);
 }
 }

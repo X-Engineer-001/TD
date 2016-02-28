@@ -1,7 +1,7 @@
 var FPS=60;
 var money=3;
 var enemylevel=1;
-var enemycount=0;
+var enemycount=1;
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
 var enemyimg=document.createElement("img");
@@ -520,10 +520,20 @@ function draw(){
     enemies[enemies.length-1].waypointschoice();
     enemycount=enemycount+1
   }
-  if(enemycount%5==0){
+  if(enemycount%6==0){
     enemylevel=enemylevel+1;
+    enemycount=enemycount+1;
   }
   ctx.drawImage(bgimg,0,0);
+  for(var i=0;i<enemies.length;i++){
+    enemies[i].move();
+    if(enemies[i].hp<=0){
+      enemies.splice(i,1);
+      money=money+1;
+    }else{
+    ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
+    }
+  }
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
     towers[i].nowreload=towers[i].nowreload-1;
@@ -549,6 +559,15 @@ function draw(){
         }
         ctx.drawImage(range3img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
       }
+    }
+    if(towers[i].tower==1){
+      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==2){
+      ctx.drawImage(tower2img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==3){
+      ctx.drawImage(tower3img,towers[i].x,towers[i].y);
     }
     if(towers[i].aimingid!=null){
       if(towers[i].nowreload<=0){
@@ -586,24 +605,6 @@ function draw(){
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
-    }
-    if(towers[i].tower==1){
-      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
-    }
-    if(towers[i].tower==2){
-      ctx.drawImage(tower2img,towers[i].x,towers[i].y);
-    }
-    if(towers[i].tower==3){
-      ctx.drawImage(tower3img,towers[i].x,towers[i].y);
-    }
-  }
-  for(var i=0;i<enemies.length;i++){
-    enemies[i].move();
-    if(enemies[i].hp<=0){
-      enemies.splice(i,1);
-      money=money+1;
-    }else{
-    ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
     }
   }
   for(var i=0;i<enemies.length;i++){

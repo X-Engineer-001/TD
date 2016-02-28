@@ -2,6 +2,9 @@ var FPS=60;
 var money=3;
 var enemylevel=1;
 var enemycount=1;
+var moneytext=0;
+var roadtext=0;
+var towertext=0;
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
 var enemyimg=document.createElement("img");
@@ -44,8 +47,8 @@ var range3img=document.createElement("img");
 range3img.src="images/range3.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
-ctx.font="32px Arial";
-ctx.fillStyle="white";
+ctx.font="20px Arial";
+ctx.fillStyle="black";
 var isbuilding=0;
 var clock=0;
 var enemyclock=0;
@@ -157,6 +160,7 @@ function Enemy(){
   this.x=224;
   this.y=0;
   this.speed=64;
+  this.level=enemylevel;
   this.fullhp=10*enemylevel;
   this.hp=10*enemylevel;
   this.direction={x:0,y:1};
@@ -332,7 +336,7 @@ function canbuild1(){
           )
      )
   ){
-      console.log("Can't build !");
+      roadtext=FPS;
       return false;
     }
   }
@@ -367,7 +371,7 @@ function canbuild2(){
           )
      )
   ){
-      console.log("Can't build !");
+      roadtext=FPS;
       return false;
     }
   }
@@ -402,7 +406,7 @@ function canbuild3(){
           )
      )
   ){
-      console.log("Can't build !");
+      roadtext=FPS;
       return false;
     }
   }
@@ -437,7 +441,7 @@ function canbuild4(){
           )
      )
   ){
-      console.log("Can't build !");
+      roadtext=FPS;
       return false;
     }
   }
@@ -446,7 +450,7 @@ function canbuild4(){
 function canbuildT(){
   for(var i=0;i<towers.length;i++){
     if(cursor.x-(cursor.x%32)==towers[i].x&&cursor.y-(cursor.y%32)==towers[i].y){
-      console.log("There's already a tower here !");
+      towertext=FPS;
       return false;
     }
   }
@@ -492,21 +496,31 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower1();
     towers.push(newtower);
     money=money-1;
+  }else if(money<=0){
+    moneytext=FPS;
   }
   if(isbuilding==2&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()&&money>0){
     var newtower=new Tower2();
     towers.push(newtower);
     money=money-1;
+  }else if(money<=0){
+    moneytext=FPS;
   }
   if(isbuilding==3&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()&&money>0){
     var newtower=new Tower3();
     towers.push(newtower);
     money=money-1;
+  }else if(money<=0){
+    moneytext=FPS;
   }
   for(var i=0;i<towers.length;i++){
-    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding&&money>0){
-      towers[i].level=towers[i].level+1;
-      money=money-1;
+    if(!isbuilding&&money>0){
+      if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
+        towers[i].level=towers[i].level+1;
+        money=money-1;
+      }
+    }else if(money<=0){
+      moneytext=FPS;
     }
   }
 }});
@@ -538,6 +552,9 @@ function draw(){
     }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
     }
+    if(iscollided(cursor.x,cursor.y,enemies[i].x,enemies[i].y,32,32)&&!isbuilding){
+      ctx.fillText(enemies[i].level,enemies[i].x+10,enemies[i].y-5);
+    }
   }
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
@@ -552,7 +569,7 @@ function draw(){
       ctx.drawImage(tower3img,towers[i].x,towers[i].y);
     }
     if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
-      ctx.fillText(towers[i].level,towers[i].x,towers[i].y+32);
+      ctx.fillText(towers[i].level,towers[i].x+10,towers[i].y-5);
       if(towers[i].tower==1){
         if(towers[i].aimingid!=null){
           ctx.drawImage(crosshair1img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
@@ -742,6 +759,18 @@ function draw(){
   ctx.drawImage(pauseimg,640,64);
 }else{
   ctx.drawImage(playimg,640,64);
+}
+if(moneytext>0){
+  ctx.fillText("No enough money !",5,25);
+  moneytext=moneytext-1;
+}
+if(towertext>0){
+  ctx.fillText("There's already a tower here !",5,25);
+  towertext=towertext-1;
+}
+if(roadtext>0){
+  ctx.fillText("Can't build on the road!",5,25);
+  roadtext=roadtext-1;
 }
 if(playerhp<=0){
   clearInterval(set);

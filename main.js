@@ -522,7 +522,7 @@ function draw(){
     enemies[enemies.length-1].waypointschoice();
     enemycount=enemycount+1
   }
-  if(enemycount%6==0){
+  if(enemycount%4==0){
     enemylevel=enemylevel+1;
     enemycount=enemycount+1;
   }
@@ -532,6 +532,9 @@ function draw(){
     if(enemies[i].hp<=0){
       enemies.splice(i,1);
       money=money+1;
+      if(money>9){
+        money=9;
+      }
     }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
     }
@@ -539,6 +542,15 @@ function draw(){
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
     towers[i].nowreload=towers[i].nowreload-1;
+    if(towers[i].tower==1){
+      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==2){
+      ctx.drawImage(tower2img,towers[i].x,towers[i].y);
+    }
+    if(towers[i].tower==3){
+      ctx.drawImage(tower3img,towers[i].x,towers[i].y);
+    }
     if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
       ctx.fillText(towers[i].level,towers[i].x,towers[i].y+32);
       if(towers[i].tower==1){
@@ -559,15 +571,6 @@ function draw(){
         }
         ctx.drawImage(range3img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
       }
-    }
-    if(towers[i].tower==1){
-      ctx.drawImage(tower1img,towers[i].x,towers[i].y);
-    }
-    if(towers[i].tower==2){
-      ctx.drawImage(tower2img,towers[i].x,towers[i].y);
-    }
-    if(towers[i].tower==3){
-      ctx.drawImage(tower3img,towers[i].x,towers[i].y);
     }
     if(towers[i].aimingid!=null){
       if(towers[i].nowreload<=0){
@@ -742,9 +745,9 @@ function draw(){
 }
 if(playerhp<=0){
   clearInterval(set);
-  ctx.font="50px Arial";
+  ctx.font="75px Arial";
   ctx.fillStyle="black";
-  ctx.fillText("Game Over",150,265);
+  ctx.fillText("Game Over",150,278);
 }
 }
 var set=setInterval(draw,1000/FPS);

@@ -571,6 +571,7 @@ function draw(){
     if(towers[i].aimingid!=null){
       if(enemies[towers[i].aimingid].number!=towertarget){
         towers[i].shotting=0;
+        console.log('1');
       }
     }
     towers[i].nowreload=towers[i].nowreload-1;

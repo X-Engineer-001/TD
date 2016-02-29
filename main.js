@@ -496,9 +496,9 @@ document.onmousewheel=function(event){
     }
   }
 };
-document.oncontextmenu=function(){
+document.oncontextmenu=function(event){
   pauseflag=!pauseflag;
-  return false;
+  event.returnValue=false;
 };
 $("#gamecanvas").click(function(){
   if(cursor.x>640&&cursor.x<736&&cursor.y>64&&cursor.y<160&&isbuilding==0){

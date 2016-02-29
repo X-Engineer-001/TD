@@ -564,10 +564,14 @@ function draw(){
     }
   }
   for(var i=0;i<towers.length;i++){
-    var towertarget=enemies[towers[i].aimingid].number;
+    if(towers[i].aimingid!=null){
+      var towertarget=enemies[towers[i].aimingid].number;
+    }
     towers[i].serchenemy();
-    if(enemies[towers[i].aimingid].number!=towertarget){
-      towers[i].shotting=0;
+    if(towers[i].aimingid!=null){
+      if(enemies[towers[i].aimingid].number!=towertarget){
+        towers[i].shotting=0;
+      }
     }
     towers[i].nowreload=towers[i].nowreload-1;
     if(towers[i].tower==1){

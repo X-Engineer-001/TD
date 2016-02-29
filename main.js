@@ -176,7 +176,6 @@ function Enemy(){
   this.direction={x:0,y:1};
   this.waypointsdes=0;
   this.delay=0;
-  this.number=enemycount;
   this.waypointschoice=function(){
     this.choiceflag=Math.floor(Math.random()*4);
     if(this.choiceflag==0){

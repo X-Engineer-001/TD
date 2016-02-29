@@ -547,7 +547,7 @@ $("#gamecanvas").click(function(){
   }
 });
 function draw(){
-  if(!autopauseflag||!pauseflag){
+  if(autopauseflag||pauseflag){
     clock=clock+1;
     enemyclock=enemyclock+1
     if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
@@ -565,7 +565,7 @@ function draw(){
   }
   ctx.drawImage(bgimg,0,0);
   for(var i=0;i<enemies.length;i++){
-    if(!autopauseflag||!pauseflag){
+    if(autopauseflag||pauseflag){
       enemies[i].move();
     }
     if(enemies[i].hp<=0){
@@ -580,7 +580,7 @@ function draw(){
   }
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
-    if(!autopauseflag||!pauseflag){
+    if(autopauseflag||pauseflag){
       towers[i].nowreload=towers[i].nowreload-1;
     }
     if(towers[i].tower==1){
@@ -611,7 +611,7 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        if(!autopauseflag||!pauseflag){
+        if(autopauseflag||pauseflag){
           towers[i].shotting=towers[i].shotting-1;
         }
       }
@@ -623,7 +623,7 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        if(!autopauseflag||!pauseflag){
+        if(autopauseflag||pauseflag){
           towers[i].shotting=towers[i].shotting-1;
         }
       }
@@ -635,7 +635,7 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        if(!autopauseflag||!pauseflag){
+        if(autopauseflag||pauseflag){
           towers[i].shotting=towers[i].shotting-1;
         }
       }
@@ -770,7 +770,7 @@ function draw(){
   }else if(money==1){
     ctx.drawImage(pointimg,704,448);
   }
-  if(!autopauseflag||!pauseflag){
+  if(autopauseflag||pauseflag){
     ctx.drawImage(pauseimg,640,64);
   }else{
     ctx.drawImage(playimg,640,64);

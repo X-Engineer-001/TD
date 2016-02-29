@@ -166,6 +166,7 @@ function Enemy(){
   this.direction={x:0,y:1};
   this.waypointsdes=0;
   this.delay=0;
+  this.number=enemycount;
   this.waypointschoice=function(){
     this.choiceflag=Math.floor(Math.random()*4);
     if(this.choiceflag==0){
@@ -563,10 +564,9 @@ function draw(){
     }
   }
   for(var i=0;i<towers.length;i++){
-    var towertarget=towers[i].aimingid;
+    var towertarget=enemies[towers[i].aimingid].number;
     towers[i].serchenemy();
-    if(towers[i].aimingid!=towertarget){
-      console.log("test");
+    if(enemies[towers[i].aimingid].number!=towertarget){
       towers[i].shotting=0;
     }
     towers[i].nowreload=towers[i].nowreload-1;

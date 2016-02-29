@@ -520,12 +520,10 @@ $("#gamecanvas").click(function(){
     roadtext=0;
   }
   for(var i=0;i<towers.length;i++){
-    if(!isbuilding&&money>0){
-      if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
-        towers[i].level=towers[i].level+1;
-        money=money-1;
-      }
-    }else if(money<=0){
+    if(!isbuilding&&money>0&&iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
+      towers[i].level=towers[i].level+1;
+      money=money-1;
+    }else if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&money<=0){
       moneytext=FPS;
       towertext=0;
       roadtext=0;
@@ -565,7 +563,11 @@ function draw(){
     }
   }
   for(var i=0;i<towers.length;i++){
+    var towertarget=towers[i].aimingid;
     towers[i].serchenemy();
+    if(towers[i].aimingid!=towertarget){
+      towers[i].shotting=0;
+    }
     towers[i].nowreload=towers[i].nowreload-1;
     if(towers[i].tower==1){
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
@@ -633,8 +635,6 @@ function draw(){
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
-    }else{
-      towers[i].shotting=0;
     }
   }
   for(var i=0;i<enemies.length;i++){

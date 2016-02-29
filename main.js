@@ -496,22 +496,28 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower1();
     towers.push(newtower);
     money=money-1;
-  }else if(money<=0){
+  }else if(money<=0&&cursor.x<640){
     moneytext=FPS;
+    towertext=0;
+    roadtext=0;
   }
   if(isbuilding==2&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()&&money>0){
     var newtower=new Tower2();
     towers.push(newtower);
     money=money-1;
-  }else if(money<=0){
+  }else if(money<=0&&cursor.x<640){
     moneytext=FPS;
+    towertext=0;
+    roadtext=0;
   }
   if(isbuilding==3&&cursor.x<640&&canbuild1()&&canbuild2()&&canbuild3()&&canbuild4()&&canbuildT()&&money>0){
     var newtower=new Tower3();
     towers.push(newtower);
     money=money-1;
-  }else if(money<=0){
+  }else if(money<=0&&cursor.x<640){
     moneytext=FPS;
+    towertext=0;
+    roadtext=0;
   }
   for(var i=0;i<towers.length;i++){
     if(!isbuilding&&money>0){
@@ -521,6 +527,8 @@ $("#gamecanvas").click(function(){
       }
     }else if(money<=0){
       moneytext=FPS;
+      towertext=0;
+      roadtext=0;
     }
   }
 }});
@@ -625,6 +633,8 @@ function draw(){
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
+    }else{
+      towers[i].shotting=0;
     }
   }
   for(var i=0;i<enemies.length;i++){

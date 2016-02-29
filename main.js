@@ -564,17 +564,21 @@ function draw(){
     }
   }
   for(var i=0;i<towers.length;i++){
+    towers[i].nowreload=towers[i].nowreload-1;
     if(towers[i].aimingid!=null){
       var towertarget=enemies[towers[i].aimingid].number;
-    }
-    towers[i].serchenemy();
-    if(towers[i].aimingid!=null){
-      if(enemies[towers[i].aimingid].number!=towertarget){
-        towers[i].shotting=0;
-        console.log('1');
+      if(towers[i].nowreload<=0){
+        towers[i].shotting=FPS/6;
+        enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-(towers[i].attack*towers[i].level);
+        towers[i].nowreload=towers[i].reload;
       }
     }
-    towers[i].nowreload=towers[i].nowreload-1;
+    towers[i].serchenemy();
+    if(towertarget!=undefined){
+      if(enemies[towers[i].aimingid].number!=towertarget){
+        towers[i].shotting=0;
+      }
+    }
     if(towers[i].tower==1){
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
     }
@@ -606,11 +610,6 @@ function draw(){
       }
     }
     if(towers[i].aimingid!=null){
-      if(towers[i].nowreload<=0){
-        towers[i].shotting=FPS/6;
-        enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-(towers[i].attack*towers[i].level);
-        towers[i].nowreload=towers[i].reload;
-      }
       if(towers[i].tower==1&&towers[i].shotting>0){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
@@ -641,6 +640,8 @@ function draw(){
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
+    }else{
+      towers[i].shotting=0;
     }
   }
   for(var i=0;i<enemies.length;i++){

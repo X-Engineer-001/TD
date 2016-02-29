@@ -483,7 +483,7 @@ $("#gamecanvas").mousemove(function(event){
   cursor.y=event.offsetY;
 });
 $("#gamecanvas").click(function(){
-  if(cursor.x>640&&cursor.x<736&&cursor.y>64&&cursor.y<160){
+  if(cursor.x>640&&cursor.x<736&&cursor.y>64&&cursor.y<160&&!isbuilding){
     pauseflag=!pauseflag;
   }
   if(!pauseflag){
@@ -547,6 +547,40 @@ $("#gamecanvas").click(function(){
   }
 }});
 function draw(){
+  pauseflag=false;
+  if(isbuilding){
+    pauseflag=true;
+  }
+  for(var i=0;i<enemies.length;i++){
+    if(iscollided1(cursor.x,cursor.y,enemies[i].x,enemies[i].y,32,32)&&!isbuilding){
+      pauseflag=true;
+      ctx.fillText(enemies[i].level,enemies[i].x+10,enemies[i].y-5);
+    }
+  }
+  for(var i=0;i<towers.length;i++){
+    if(iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
+      pauseflag=true;
+      ctx.fillText(towers[i].level,towers[i].x+10,towers[i].y-5);
+      if(towers[i].tower==1){
+        if(towers[i].aimingid!=null){
+          ctx.drawImage(crosshair1img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+        }
+        ctx.drawImage(range1img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
+      }
+      if(towers[i].tower==2){
+        if(towers[i].aimingid!=null){
+          ctx.drawImage(crosshair2img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+        }
+        ctx.drawImage(range2img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
+      }
+      if(towers[i].tower==3){
+        if(towers[i].aimingid!=null){
+          ctx.drawImage(crosshair3img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
+        }
+        ctx.drawImage(range3img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
+      }
+    }
+  }
   if(!pauseflag){
   clock=clock+1;
   enemyclock=enemyclock+1
@@ -574,9 +608,6 @@ function draw(){
     }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
     }
-    if(iscollided1(cursor.x,cursor.y,enemies[i].x,enemies[i].y,32,32)&&!isbuilding){
-      ctx.fillText(enemies[i].level,enemies[i].x+10,enemies[i].y-5);
-    }
   }
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
@@ -589,27 +620,6 @@ function draw(){
     }
     if(towers[i].tower==3){
       ctx.drawImage(tower3img,towers[i].x,towers[i].y);
-    }
-    if(iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
-      ctx.fillText(towers[i].level,towers[i].x+10,towers[i].y-5);
-      if(towers[i].tower==1){
-        if(towers[i].aimingid!=null){
-          ctx.drawImage(crosshair1img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
-        }
-        ctx.drawImage(range1img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
-      }
-      if(towers[i].tower==2){
-        if(towers[i].aimingid!=null){
-          ctx.drawImage(crosshair2img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
-        }
-        ctx.drawImage(range2img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
-      }
-      if(towers[i].tower==3){
-        if(towers[i].aimingid!=null){
-          ctx.drawImage(crosshair3img,enemies[towers[i].aimingid].x-4,enemies[towers[i].aimingid].y-4,40,40);
-        }
-        ctx.drawImage(range3img,towers[i].x+16-towers[i].range,towers[i].y+16-towers[i].range,towers[i].range*2,towers[i].range*2);
-      }
     }
     if(towers[i].aimingid!=null){
       if(towers[i].nowreload<=0){

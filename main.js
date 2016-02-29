@@ -54,6 +54,7 @@ var clock=0;
 var enemyclock=0;
 var enemyclockrandom=0;
 var playerhp=9;
+var autopauseflag=false;
 var pauseflag=false;
 var waypoints1=[
   {x:7*32,y:2*32},
@@ -546,7 +547,7 @@ $("#gamecanvas").click(function(){
   }
 });
 function draw(){
-  if(!pauseflag){
+  if(!autopauseflag||!pauseflag){
     clock=clock+1;
     enemyclock=enemyclock+1
     if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
@@ -557,14 +558,14 @@ function draw(){
       enemies[enemies.length-1].waypointschoice();
       enemycount=enemycount+1
     }
-    if(enemycount%5==0){
+    if(enemycount%4==0){
       enemylevel=enemylevel+1;
       enemycount=enemycount+1;
     }
   }
   ctx.drawImage(bgimg,0,0);
   for(var i=0;i<enemies.length;i++){
-    if(!pauseflag){
+    if(!autopauseflag||!pauseflag){
       enemies[i].move();
     }
     if(enemies[i].hp<=0){
@@ -579,7 +580,7 @@ function draw(){
   }
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
-    if(!pauseflag){
+    if(!autopauseflag||!pauseflag){
       towers[i].nowreload=towers[i].nowreload-1;
     }
     if(towers[i].tower==1){
@@ -610,7 +611,7 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        if(!pauseflag){
+        if(!autopauseflag||!pauseflag){
           towers[i].shotting=towers[i].shotting-1;
         }
       }
@@ -622,7 +623,7 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        if(!pauseflag){
+        if(!autopauseflag||!pauseflag){
           towers[i].shotting=towers[i].shotting-1;
         }
       }
@@ -634,7 +635,7 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        if(!pauseflag){
+        if(!autopauseflag||!pauseflag){
           towers[i].shotting=towers[i].shotting-1;
         }
       }
@@ -769,42 +770,36 @@ function draw(){
   }else if(money==1){
     ctx.drawImage(pointimg,704,448);
   }
-  if(!pauseflag){
+  if(!autopauseflag||!pauseflag){
     ctx.drawImage(pauseimg,640,64);
   }else{
     ctx.drawImage(playimg,640,64);
   }
   if(moneytext>0){
     ctx.fillText("No enough money !",5,25);
-    if(!pauseflag){
       moneytext=moneytext-1;
-    }
   }
   if(towertext>0){
     ctx.fillText("There's already a tower here !",5,25);
-    if(!pauseflag){
       towertext=towertext-1;
-    }
   }
   if(roadtext>0){
     ctx.fillText("Can't build on the road!",5,25);
-    if(!pauseflag){
       roadtext=roadtext-1;
-    }
   }
-  pauseflag=false;
+  autopauseflag=false;
   if(isbuilding!=0){
-    pauseflag=true;
+    autopauseflag=true;
   }
   for(var i=0;i<enemies.length;i++){
     if(iscollided1(cursor.x,cursor.y,enemies[i].x,enemies[i].y,32,32)&&!isbuilding){
-      pauseflag=true;
+      autopauseflag=true;
       ctx.fillText(enemies[i].level,enemies[i].x+10,enemies[i].y-5);
     }
   }
   for(var i=0;i<towers.length;i++){
     if(iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
-      pauseflag=true;
+      autopauseflag=true;
       ctx.fillText(towers[i].level,towers[i].x+10,towers[i].y-5);
       if(towers[i].tower==1){
         if(towers[i].aimingid!=null){

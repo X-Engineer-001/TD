@@ -486,7 +486,6 @@ $("#gamecanvas").click(function(){
   if(cursor.x>640&&cursor.x<736&&cursor.y>64&&cursor.y<160&&!isbuilding){
     pauseflag=!pauseflag;
   }
-  if(!pauseflag){
   if(cursor.x>640&&cursor.x<672&&cursor.y>0&&cursor.y<32){
     if(isbuilding!=1){
       isbuilding=1;
@@ -545,10 +544,10 @@ $("#gamecanvas").click(function(){
       roadtext=0;
     }
   }
-}});
+});
 function draw(){
   pauseflag=false;
-  if(isbuilding){
+  if(isbuilding!=0){
     pauseflag=true;
   }
   for(var i=0;i<enemies.length;i++){
@@ -582,23 +581,26 @@ function draw(){
     }
   }
   if(!pauseflag){
-  clock=clock+1;
-  enemyclock=enemyclock+1
-  if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
-    enemyclock=0;
-    enemyclockrandom=((Math.floor(Math.random()*121)*FPS)-((Math.floor(Math.random()*121)*FPS)%60))/60;
-    var newenemy=new Enemy();
-    enemies.push(newenemy);
-    enemies[enemies.length-1].waypointschoice();
-    enemycount=enemycount+1
-  }
-  if(enemycount%5==0){
-    enemylevel=enemylevel+1;
-    enemycount=enemycount+1;
+    clock=clock+1;
+    enemyclock=enemyclock+1
+    if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
+      enemyclock=0;
+      enemyclockrandom=((Math.floor(Math.random()*121)*FPS)-((Math.floor(Math.random()*121)*FPS)%60))/60;
+      var newenemy=new Enemy();
+      enemies.push(newenemy);
+      enemies[enemies.length-1].waypointschoice();
+      enemycount=enemycount+1
+    }
+    if(enemycount%5==0){
+      enemylevel=enemylevel+1;
+      enemycount=enemycount+1;
+    }
   }
   ctx.drawImage(bgimg,0,0);
   for(var i=0;i<enemies.length;i++){
-    enemies[i].move();
+    if(!pauseflag){
+      enemies[i].move();
+    }
     if(enemies[i].hp<=0){
       enemies.splice(i,1);
       money=money+1;
@@ -611,7 +613,9 @@ function draw(){
   }
   for(var i=0;i<towers.length;i++){
     towers[i].serchenemy();
-    towers[i].nowreload=towers[i].nowreload-1;
+    if(!pauseflag){
+      towers[i].nowreload=towers[i].nowreload-1;
+    }
     if(towers[i].tower==1){
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
     }
@@ -637,7 +641,9 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        towers[i].shotting=towers[i].shotting-1;
+        if(!pauseflag){
+          towers[i].shotting=towers[i].shotting-1;
+        }
       }
       if(towers[i].tower==2&&towers[i].shotting>0){
         ctx.beginPath();
@@ -647,7 +653,9 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        towers[i].shotting=towers[i].shotting-1;
+        if(!pauseflag){
+          towers[i].shotting=towers[i].shotting-1;
+        }
       }
       if(towers[i].tower==3&&towers[i].shotting>0){
         ctx.beginPath();
@@ -657,7 +665,9 @@ function draw(){
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
-        towers[i].shotting=towers[i].shotting-1;
+        if(!pauseflag){
+          towers[i].shotting=towers[i].shotting-1;
+        }
       }
     }
   }
@@ -790,27 +800,34 @@ function draw(){
   }else if(money==1){
     ctx.drawImage(pointimg,704,448);
   }
-  ctx.drawImage(pauseimg,640,64);
-}else{
-  ctx.drawImage(playimg,640,64);
-}
-if(moneytext>0){
-  ctx.fillText("No enough money !",5,25);
-  moneytext=moneytext-1;
-}
-if(towertext>0){
-  ctx.fillText("There's already a tower here !",5,25);
-  towertext=towertext-1;
-}
-if(roadtext>0){
-  ctx.fillText("Can't build on the road!",5,25);
-  roadtext=roadtext-1;
-}
-if(playerhp<=0){
-  clearInterval(set);
-  ctx.font="75px Arial";
-  ctx.fillStyle="black";
-  ctx.fillText("Game Over",150,278);
-}
+  if(!pauseflag){
+    ctx.drawImage(pauseimg,640,64);
+  }else{
+    ctx.drawImage(playimg,640,64);
+  }
+  if(moneytext>0){
+    ctx.fillText("No enough money !",5,25);
+    if(!pauseflag){
+      moneytext=moneytext-1;
+    }
+  }
+  if(towertext>0){
+    ctx.fillText("There's already a tower here !",5,25);
+    if(!pauseflag){
+      towertext=towertext-1;
+    }
+  }
+  if(roadtext>0){
+    ctx.fillText("Can't build on the road!",5,25);
+    if(!pauseflag){
+      roadtext=roadtext-1;
+    }
+  }
+  if(playerhp<=0){
+    clearInterval(set);
+    ctx.font="75px Arial";
+    ctx.fillStyle="black";
+    ctx.fillText("Game Over",150,278);
+  }
 }
 var set=setInterval(draw,1000/FPS);

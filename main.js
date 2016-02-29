@@ -496,6 +496,9 @@ document.onmousewheel=function(event){
     }
   }
 };
+document.oncontextmenu=function(){
+  pauseflag=!pauseflag;
+};
 $("#gamecanvas").click(function(){
   if(cursor.x>640&&cursor.x<736&&cursor.y>64&&cursor.y<160&&isbuilding==0){
     pauseflag=!pauseflag;
@@ -549,7 +552,7 @@ $("#gamecanvas").click(function(){
     roadtext=0;
   }
   for(var i=0;i<towers.length;i++){
-    if(!isbuilding&&money>0&&iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
+    if(isbuilding==0&&money>0&&iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
       towers[i].level=towers[i].level+1;
       money=money-1;
     }else if(iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&money<=0){

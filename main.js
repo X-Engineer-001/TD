@@ -574,7 +574,7 @@ function draw(){
       }
     }
     towers[i].serchenemy();
-    if(towertarget!=undefined){
+    if(towertarget!=undefined&&towers[i].aimingid!=null){
       if(enemies[towers[i].aimingid].number!=towertarget){
         towers[i].shotting=0;
       }

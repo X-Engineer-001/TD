@@ -141,7 +141,7 @@ var waypoints4=[
   {x:18*32,y:9*32},
   {x:20*32,y:9*32}
 ];
-function iscollided(x,y,targetx,targety,targetwidth,targetheight){
+function iscollided2(x,y,targetx,targety,targetwidth,targetheight){
   if((x>=targetx&&
     x<=targetx+targetwidth&&
     y>=targety&&
@@ -151,6 +151,16 @@ function iscollided(x,y,targetx,targety,targetwidth,targetheight){
     y<=targety&&
     y>=targety-targetheight
     )){
+    return true;
+  }else{
+    return false;
+  }
+}
+function iscollided1(x,y,targetx,targety,targetwidth,targetheight){
+  if(x>=targetx&&
+    x<=targetx+targetwidth&&
+    y>=targety&&
+    y<=targety+targetheight){
     return true;
   }else{
     return false;
@@ -180,22 +190,22 @@ function Enemy(){
     }
   };
   this.move=function(){
-    if(this.direction.x==1&&iscollided((this.x-(this.x%32))+32,this.y,
+    if(this.direction.x==1&&iscollided2((this.x-(this.x%32))+32,this.y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
       this.x=(this.x-(this.x%32))+32;
     }
-    if(this.direction.y==1&&iscollided(this.x,(this.y-(this.y%32))+32,
+    if(this.direction.y==1&&iscollided2(this.x,(this.y-(this.y%32))+32,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
       this.y=(this.y-(this.y%32))+32;
     }
-    if(this.direction.x==-1&&iscollided((this.x-(this.x%32)),this.y,
+    if(this.direction.x==-1&&iscollided2((this.x-(this.x%32)),this.y,
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
       this.x=(this.x-(this.x%32));
     }
-    if(this.direction.y==-1&&iscollided(this.x,(this.y-(this.y%32)),
+    if(this.direction.y==-1&&iscollided2(this.x,(this.y-(this.y%32)),
       this.x,this.y,this.speed/FPS,this.speed/FPS
     )){
       this.y=(this.y-(this.y%32));
@@ -207,7 +217,7 @@ function Enemy(){
       this.delay=this.delay-1;
     }
     if(this.delay<=0){
-      if(iscollided(this.choice[this.waypointsdes].x,
+      if(iscollided2(this.choice[this.waypointsdes].x,
         this.choice[this.waypointsdes].y,
         this.x,this.y,this.speed/FPS,this.speed/FPS
       )){
@@ -251,6 +261,8 @@ function Tower1(){
   this.nowreload=FPS*3;
   this.attack=9;
   this.aimingid=null;
+  this.shottingx=null;
+  this.shottingy=null;
   this.shotting=0;
   this.serchenemy=function(){
     this.aimingid=null;
@@ -273,6 +285,8 @@ function Tower2(){
   this.nowreload=FPS/3;
   this.attack=1.5;
   this.aimingid=null;
+  this.shottingx=null;
+  this.shottingy=null;
   this.shotting=0;
   this.serchenemy=function(){
     this.aimingid=null;
@@ -295,6 +309,8 @@ function Tower3(){
   this.nowreload=FPS*3/2;
   this.attack=4;
   this.aimingid=null;
+  this.shottingx=null;
+  this.shottingy=null;
   this.shotting=0;
   this.serchenemy=function(){
     this.aimingid=null;
@@ -521,7 +537,7 @@ $("#gamecanvas").click(function(){
     roadtext=0;
   }
   for(var i=0;i<towers.length;i++){
-    if(!isbuilding&&money>0&&iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
+    if(!isbuilding&&money>0&&iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
       towers[i].level=towers[i].level+1;
       money=money-1;
     }else if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&money<=0){
@@ -559,26 +575,13 @@ function draw(){
     }else{
     ctx.drawImage(enemyimg,enemies[i].x,enemies[i].y);
     }
-    if(iscollided(cursor.x,cursor.y,enemies[i].x,enemies[i].y,32,32)&&!isbuilding){
+    if(iscollided1(cursor.x,cursor.y,enemies[i].x,enemies[i].y,32,32)&&!isbuilding){
       ctx.fillText(enemies[i].level,enemies[i].x+10,enemies[i].y-5);
     }
   }
   for(var i=0;i<towers.length;i++){
-    towers[i].nowreload=towers[i].nowreload-1;
-    if(towers[i].aimingid!=null){
-      var towertarget=enemies[towers[i].aimingid].number;
-      if(towers[i].nowreload<=0){
-        towers[i].shotting=FPS/6;
-        enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-(towers[i].attack*towers[i].level);
-        towers[i].nowreload=towers[i].reload;
-      }
-    }
     towers[i].serchenemy();
-    if(towertarget!=undefined&&towers[i].aimingid!=null){
-      if(enemies[towers[i].aimingid].number!=towertarget){
-        towers[i].shotting=0;
-      }
-    }
+    towers[i].nowreload=towers[i].nowreload-1;
     if(towers[i].tower==1){
       ctx.drawImage(tower1img,towers[i].x,towers[i].y);
     }
@@ -588,7 +591,7 @@ function draw(){
     if(towers[i].tower==3){
       ctx.drawImage(tower3img,towers[i].x,towers[i].y);
     }
-    if(iscollided(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
+    if(iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&!isbuilding){
       ctx.fillText(towers[i].level,towers[i].x+10,towers[i].y-5);
       if(towers[i].tower==1){
         if(towers[i].aimingid!=null){
@@ -610,10 +613,17 @@ function draw(){
       }
     }
     if(towers[i].aimingid!=null){
+      if(towers[i].nowreload<=0){
+        towers[i].shotting=FPS/6;
+        towers[i].shottingx=enemies[towers[i].aimingid].x;
+        towers[i].shottingy=enemies[towers[i].aimingid].y;
+        enemies[towers[i].aimingid].hp=enemies[towers[i].aimingid].hp-(towers[i].attack*towers[i].level);
+        towers[i].nowreload=towers[i].reload;
+      }
       if(towers[i].tower==1&&towers[i].shotting>0){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
-        ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
+        ctx.lineTo(towers[i].shottingx+16,towers[i].shottingy+16);
         ctx.strokeStyle="rgb(255,0,0)";
         ctx.lineWidth="2";
         ctx.stroke();
@@ -623,7 +633,7 @@ function draw(){
       if(towers[i].tower==2&&towers[i].shotting>0){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
-        ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
+        ctx.lineTo(towers[i].shottingx+16,towers[i].shottingy+16);
         ctx.strokeStyle="rgb(0,0,255)";
         ctx.lineWidth="2";
         ctx.stroke();
@@ -633,15 +643,13 @@ function draw(){
       if(towers[i].tower==3&&towers[i].shotting>0){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
-        ctx.lineTo(enemies[towers[i].aimingid].x+16,enemies[towers[i].aimingid].y+16);
+        ctx.lineTo(towers[i].shottingx+16,towers[i].shottingy+16);
         ctx.strokeStyle="rgb(255,255,0)";
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();
         towers[i].shotting=towers[i].shotting-1;
       }
-    }else{
-      towers[i].shotting=0;
     }
   }
   for(var i=0;i<enemies.length;i++){

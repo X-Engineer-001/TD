@@ -270,7 +270,7 @@ function Tower2(){
   this.range=100;
   this.reload=FPS/3;
   this.nowreload=FPS/3;
-  this.attack=1;
+  this.attack=1.5;
   this.aimingid=null;
   this.shotting=0;
   this.serchenemy=function(){
@@ -542,7 +542,7 @@ function draw(){
     enemies[enemies.length-1].waypointschoice();
     enemycount=enemycount+1
   }
-  if(enemycount%4==0){
+  if(enemycount%5==0){
     enemylevel=enemylevel+1;
     enemycount=enemycount+1;
   }
@@ -566,6 +566,7 @@ function draw(){
     var towertarget=towers[i].aimingid;
     towers[i].serchenemy();
     if(towers[i].aimingid!=towertarget){
+      console.log("test");
       towers[i].shotting=0;
     }
     towers[i].nowreload=towers[i].nowreload-1;

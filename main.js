@@ -149,7 +149,7 @@ function tutorial(){
   if(tutorialflag==0){
     if(enemies[0].y>=64){
       autopauseflag=true;
-      $("p").text("Oh! an enemy... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner, The red one has high damage, but slow fire rate and small range. The blue one has fast fire rate, but low damage and small range. The pink one has high range, ordinary fire rate and damage. It's your choice.");
+      $("p").text("Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner, The red one has high damage, but slow fire rate and small range. The blue one has fast fire rate, but low damage and small range. The pink one has high range, ordinary fire rate and damage. It's your choice.");
       if(isbuilding){
         $("p").text("That's it! When you'r building, the game will automatically paused. You can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons. Now, build it by click on the brighter place.");
       }

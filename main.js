@@ -151,7 +151,7 @@ function tutorial(){
       autopauseflag=true;
       $("p").text("Oh! an enemy... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner, then build it by click on the brighter place. The red one has high damage, but slow fire rate and small range. The blue one has fast fire rate, but low damage and small range. The pink one has high range, ordinary fire rate and damage. It's your choice.");
       if(towers[0]){
-        $("p").text("That's it! Noticed that? When you'r building, the game will automatically paused. You can manually pause/play by clicking on the pixel pause/play icon below the three tower icons. By the way, remember that if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.");
+        $("p").text("That's it! Noticed that? When you'r building, the game will automatically paused. You can manually pause/play by clicking on the pixel pause/play icon below the three tower icons. By the way, remember that if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel. Now just click on the tower icon that you choosed again to play.");
         tutorialflag=tutorialflag+1;
       }
     }

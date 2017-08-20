@@ -648,7 +648,7 @@ function draw(){
         ctx.beginPath();
         ctx.moveTo(towers[i].x+16,towers[i].y+16);
         ctx.lineTo(towers[i].shottingx+16,towers[i].shottingy+16);
-        ctx.strokeStyle="rgb(255,255,0)";
+        ctx.strokeStyle="rgb(255,102,255)";
         ctx.lineWidth="2";
         ctx.stroke();
         ctx.closePath();

@@ -5,6 +5,8 @@ var enemycount=1;
 var moneytext=0;
 var roadtext=0;
 var towertext=0;
+var towers=[];
+var enemies=[];
 var tutorialflag=0;
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
@@ -145,9 +147,15 @@ var waypoints4=[
 ];
 function tutorial(){
   if(tutorialflag==0){
-    if(enemies[0])
+    if(enemies[0].y>=64){
+      autopause=true;
+      $("p").text("Oh! an enemy... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner, then build it by click on the brighter place. The red one has high damage, but slow fire rate and small range. The blue one has fast fire rate, but low damage and small range. The pink one has high range, ordinary fire rate and damage. It's your choice.");
+      if(towers[0]){
+        $("p").text("That's it! Noticed that? When you'r building, the game will automatically paused. You can manually pause/play by clicking on the pixel pause/play icon below the three tower icons. By the way, remember that if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.");
+        tutorialflag=tutorialflag+1;
+      }
+    }
   }
-  $("p").text("Hello <b>world</b>!");
 }
 function iscollided2(x,y,targetx,targety,targetwidth,targetheight){
   if((x>=targetx&&
@@ -253,7 +261,6 @@ function Enemy(){
     }
   };
 }
-var enemies=[];
 var cursor={
   x:0,
   y:0
@@ -330,7 +337,6 @@ function Tower3(){
   };
 }
 var initialrange3=200;
-var towers=[];
 function canbuild1(){
   for(var i=0;i<waypoints1.length-1;i++){
     if(

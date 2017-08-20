@@ -788,9 +788,9 @@ function draw(){
     ctx.drawImage(pointimg,704,448);
   }
   if(autopauseflag||pauseflag){
-    ctx.drawImage(pauseimg,640,64);
-  }else{
     ctx.drawImage(playimg,640,64);
+  }else{
+    ctx.drawImage(pauseimg,640,64);
   }
   if(moneytext>0){
     ctx.fillText("No enough money !",5,25);

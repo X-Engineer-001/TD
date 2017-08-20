@@ -149,12 +149,12 @@ function tutorial(){
   if(tutorialflag==0){
     if(enemies[0].y>=64){
       autopauseflag=true;
-      $("p").text("Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner.\nThe red one has high damage, but slow fire rate and small range.\nThe blue one has fast fire rate, but low damage and small range.\nThe pink one has high range, ordinary fire rate and damage. It's your choice.");
+      $("p").text("Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner.<br>The red one has high damage, but slow fire rate and small range.<br>The blue one has fast fire rate, but low damage and small range.<br>The pink one has high range, ordinary fire rate and damage. It's your choice.");
       if(isbuilding){
-        $("p").text("That's it! When you'r building, the game will automatically paused.\nYou can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons.\nNow, build it by click on the brighter place.");
+        $("p").text("That's it! When you'r building, the game will automatically paused.<br>You can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons.<br>Now, build it by click on the brighter place.");
       }
       if(towers[0]){
-        $("p").text("By the way, if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.\nNow just click again on the tower icon that you choosed to play.");
+        $("p").text("By the way, if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.<br>Now just click again on the tower icon that you choosed to play.");
         if(!isbuilding){
           $("p").text("");
           tutorialflag=tutorialflag+1;

@@ -51,7 +51,7 @@ range3img.src="images/range3.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 ctx.font="20px Arial";
-ctx.fillStyle="rgb(255,51,153)";
+ctx.fillStyle="Gray";
 var isbuilding=0;
 var clock=0;
 var enemyclock=0;
@@ -594,11 +594,14 @@ function draw(){
       enemies.push(newenemy);
       enemies[enemies.length-1].waypointschoice();
       enemycount=enemycount+1
+      if(enemycount%4==0){
+        enemylevel=enemylevel+1;
+      }
     }
-    if(enemycount%4==0){
-      enemylevel=enemylevel+1;
+    //if(enemycount%4==0){
+      //enemylevel=enemylevel+1;
       //enemycount=enemycount+1;
-    }
+    //}
     clock=clock+1;
     enemyclock=enemyclock+1
   }

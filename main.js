@@ -5,6 +5,7 @@ var enemycount=1;
 var moneytext=0;
 var roadtext=0;
 var towertext=0;
+var tutorialflag=0;
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
 var enemyimg=document.createElement("img");
@@ -142,6 +143,12 @@ var waypoints4=[
   {x:18*32,y:9*32},
   {x:20*32,y:9*32}
 ];
+function tutorial(){
+  if(tutorialflag==0){
+    if(enemies[0])
+  }
+  $("p").text("Hello <b>world</b>!");
+}
 function iscollided2(x,y,targetx,targety,targetwidth,targetheight){
   if((x>=targetx&&
     x<=targetx+targetwidth&&
@@ -565,8 +572,6 @@ $("#gamecanvas").click(function(){
 });
 function draw(){
   if(!autopauseflag&&!pauseflag){
-    clock=clock+1;
-    enemyclock=enemyclock+1
     if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
       enemyclock=0;
       enemyclockrandom=((Math.floor(Math.random()*121)*FPS)-((Math.floor(Math.random()*121)*FPS)%60))/60;
@@ -577,8 +582,10 @@ function draw(){
     }
     if(enemycount%4==0){
       enemylevel=enemylevel+1;
-      enemycount=enemycount+1;
+      //enemycount=enemycount+1;
     }
+    clock=clock+1;
+    enemyclock=enemyclock+1
   }
   ctx.drawImage(bgimg,0,0);
   for(var i=0;i<enemies.length;i++){
@@ -838,6 +845,7 @@ function draw(){
       }
     }
   }
+  tutorial();
   if(playerhp<=0){
     clearInterval(set);
     ctx.font="75px Arial";

@@ -149,14 +149,14 @@ function tutorial(){
   if(tutorialflag==0){
     if(enemies[0].y>=64){
       autopauseflag=true;
-      $("div").appened("<p>Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner.<\p><br><p>The red one has high damage, but slow fire rate and small range.<\p><br><p>The blue one has fast fire rate, but low damage and small range.<\p><br><p>The pink one has high range, ordinary fire rate and damage. It's your choice.<\p>");
+      $("div").append("<p>Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner.<\p><br><p>The red one has high damage, but slow fire rate and small range.<\p><br><p>The blue one has fast fire rate, but low damage and small range.<\p><br><p>The pink one has high range, ordinary fire rate and damage. It's your choice.<\p>");
       if(isbuilding){
         $("div").remove();
-        $("div").appened("<p>That's it! When you'r building, the game will automatically paused.<\p><br><p>You can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons.<\p><br><p>Now, build it by click on the brighter place.<\p>");
+        $("div").append("<p>That's it! When you'r building, the game will automatically paused.<\p><br><p>You can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons.<\p><br><p>Now, build it by click on the brighter place.<\p>");
       }
       if(towers[0]){
         $("div").remove();
-        $("div").appened("<p>By the way, if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.<\p><br><p>Now just click again on the tower icon that you choosed to play.<\p>");
+        $("div").append("<p>By the way, if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.<\p><br><p>Now just click again on the tower icon that you choosed to play.<\p>");
         if(!isbuilding){
           $("div").remove();
           tutorialflag=tutorialflag+1;

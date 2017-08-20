@@ -149,14 +149,16 @@ function tutorial(){
   if(tutorialflag==0){
     if(enemies[0].y>=64){
       autopauseflag=true;
-      $("p").text("Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner, The red one has high damage, but slow fire rate and small range. The blue one has fast fire rate, but low damage and small range. The pink one has high range, ordinary fire rate and damage. It's your choice.");
+      $("div").appened("<p>Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner.<\p><br><p>The red one has high damage, but slow fire rate and small range.<\p><br><p>The blue one has fast fire rate, but low damage and small range.<\p><br><p>The pink one has high range, ordinary fire rate and damage. It's your choice.<\p>");
       if(isbuilding){
-        $("p").text("That's it! When you'r building, the game will automatically paused. You can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons. Now, build it by click on the brighter place.");
+        $("div").remove();
+        $("div").appened("<p>That's it! When you'r building, the game will automatically paused.<\p><br><p>You can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons.<\p><br><p>Now, build it by click on the brighter place.<\p>");
       }
       if(towers[0]){
-        $("p").text("By the way, if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel. Now just click on the tower icon that you choosed again to play.");
+        $("div").remove();
+        $("div").appened("<p>By the way, if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.<\p><br><p>Now just click again on the tower icon that you choosed to play.<\p>");
         if(!isbuilding){
-          $("p").text("");
+          $("div").remove();
           tutorialflag=tutorialflag+1;
         }
       }

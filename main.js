@@ -5,9 +5,6 @@ var enemycount=1;
 var moneytext=0;
 var roadtext=0;
 var towertext=0;
-var towers=[];
-var enemies=[];
-var tutorialflag=0;
 var bgimg=document.createElement("img");
 bgimg.src="images/map.png";
 var enemyimg=document.createElement("img");
@@ -51,7 +48,7 @@ range3img.src="images/range3.png";
 var canvas=document.getElementById("gamecanvas");
 var ctx=canvas.getContext("2d");
 ctx.font="20px Arial";
-ctx.fillStyle="rgb(180,180,180)";
+ctx.fillStyle="black";
 var isbuilding=0;
 var clock=0;
 var enemyclock=0;
@@ -145,27 +142,6 @@ var waypoints4=[
   {x:18*32,y:9*32},
   {x:20*32,y:9*32}
 ];
-function tutorial(){
-  if(tutorialflag==0){
-    if(enemies[0].y>=64){
-      autopauseflag=true;
-      $("div *").remove();
-      $("div").append("<p>Oh! The enemy appeared... How ugly it is! Let's destroy it... Just click on one of three towers in the upper right corner.</p><p>The red one has high damage, but slow fire rate and small range.</p><p>The blue one has fast fire rate, but low damage and small range.</p><p>The pink one has high range, ordinary fire rate and damage. It's your choice.</p>");
-      if(isbuilding){
-        $("div *").remove();
-        $("div").append("<p>That's it! When you'r building, the game will automatically paused.</p><p>You can also manually pause/play by clicking on the pixel pause/play icon below the three tower icons.</p><p>Now, build it by click on the brighter place.</p>");
-      }
-      if(towers[0]){
-        $("div *").remove();
-        $("div").append("<p>By the way, if you'r using \"chrome\" browser, you can also switch between 4 modes (play and building three towers) by scrolling the mouse wheel.</p><p>Now just click again on the tower icon that you choosed to play.</p>");
-        if(!isbuilding){
-          $("div *").remove();
-          tutorialflag=tutorialflag+1;
-        }
-      }
-    }
-  }
-}
 function iscollided2(x,y,targetx,targety,targetwidth,targetheight){
   if((x>=targetx&&
     x<=targetx+targetwidth&&
@@ -270,6 +246,7 @@ function Enemy(){
     }
   };
 }
+var enemies=[];
 var cursor={
   x:0,
   y:0
@@ -346,6 +323,7 @@ function Tower3(){
   };
 }
 var initialrange3=200;
+var towers=[];
 function canbuild1(){
   for(var i=0;i<waypoints1.length-1;i++){
     if(
@@ -587,6 +565,8 @@ $("#gamecanvas").click(function(){
 });
 function draw(){
   if(!autopauseflag&&!pauseflag){
+    clock=clock+1;
+    enemyclock=enemyclock+1
     if(enemyclock%((((FPS*3)-((FPS*3)%4))/4)+enemyclockrandom)==0){
       enemyclock=0;
       enemyclockrandom=((Math.floor(Math.random()*121)*FPS)-((Math.floor(Math.random()*121)*FPS)%60))/60;
@@ -594,16 +574,11 @@ function draw(){
       enemies.push(newenemy);
       enemies[enemies.length-1].waypointschoice();
       enemycount=enemycount+1
-      if(enemycount%4==0){
-        enemylevel=enemylevel+1;
-      }
     }
-    //if(enemycount%4==0){
-      //enemylevel=enemylevel+1;
-      //enemycount=enemycount+1;
-    //}
-    clock=clock+1;
-    enemyclock=enemyclock+1
+    if(enemycount%4==0){
+      enemylevel=enemylevel+1;
+      enemycount=enemycount+1;
+    }
   }
   ctx.drawImage(bgimg,0,0);
   for(var i=0;i<enemies.length;i++){
@@ -813,9 +788,9 @@ function draw(){
     ctx.drawImage(pointimg,704,448);
   }
   if(autopauseflag||pauseflag){
-    ctx.drawImage(playimg,640,64);
-  }else{
     ctx.drawImage(pauseimg,640,64);
+  }else{
+    ctx.drawImage(playimg,640,64);
   }
   if(moneytext>0){
     ctx.fillText("No enough money !",5,25);
@@ -863,7 +838,6 @@ function draw(){
       }
     }
   }
-  tutorial();
   if(playerhp<=0){
     clearInterval(set);
     ctx.font="75px Arial";

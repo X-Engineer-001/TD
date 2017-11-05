@@ -556,7 +556,7 @@ $("#gamecanvas").click(function(){
     if(isbuilding==0&&money>0&&iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
       towers[i].level=towers[i].level+1;
       money=money-1;
-    }else if(iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)&&money<=0){
+    }else if(isbuilding==0&&money<=0&&iscollided1(cursor.x,cursor.y,towers[i].x,towers[i].y,32,32)){
       moneytext=FPS;
       towertext=0;
       roadtext=0;

@@ -529,7 +529,7 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower1();
     towers.push(newtower);
     money=money-1;
-  }else if(money<=0&&cursor.x<640){
+  }else if(money<=0&&isbuilding==1&&cursor.x<640){
     moneytext=FPS;
     towertext=0;
     roadtext=0;
@@ -538,7 +538,7 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower2();
     towers.push(newtower);
     money=money-1;
-  }else if(money<=0&&cursor.x<640){
+  }else if(money<=0&&isbuilding==2&&cursor.x<640){
     moneytext=FPS;
     towertext=0;
     roadtext=0;
@@ -547,7 +547,7 @@ $("#gamecanvas").click(function(){
     var newtower=new Tower3();
     towers.push(newtower);
     money=money-1;
-  }else if(money<=0&&cursor.x<640){
+  }else if(money<=0&&isbuilding==3&&cursor.x<640){
     moneytext=FPS;
     towertext=0;
     roadtext=0;
